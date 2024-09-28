@@ -1,8 +1,8 @@
 ---
 layout: page
-permalink: /repositories/
-title: repositories
-description: Edit the `_data/repositories.yml` and change the `github_users` and `github_repos` lists to include your own GitHub profile and repositories.
+permalink: /code/
+title: Code
+description: Here, you can find links to the `NiChord` Python package I developed, to the code from several studies I led, and to some fun NFL analytics projects.
 nav: true
 nav_order: 4
 ---

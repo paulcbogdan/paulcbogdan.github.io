@@ -1,14 +1,13 @@
-github_users:
-  - torvalds
-  - alshedivat
+#github_users:
+#  - paulcbogdan
 
-repo_description_lines_max: 2
+repo_description_lines_max: 0
 
 github_repos:
-  - alshedivat/al-folio
-  - jekyll/jekyll
-  - twbs/bootstrap
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - mathjax/MathJax
-  - jpswalsh/academicons
+  - paulcbogdan/NiChord
+  - paulcbogdan/ConnSearch
+  - paulcbogdan/NFL-play-by-player
+  - paulcbogdan/NFL_DensOrd
+  - paulcbogdan/EmoTemporal
+  - paulcbogdan/Suitability_Online_ET
+  - paulcbogdan/SocExp_UG_PG_TG
