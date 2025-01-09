@@ -17,7 +17,7 @@ lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: pcb_bw2.png # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
 url: https://paulcbogdan.github.io # the base hostname & protocol for your site
-baseurl: .# the subpath of your site, e.g. /blog/. Leave blank for root
+baseurl: # the subpath of your site, e.g. /blog/. Leave blank for root
 url: https://pbogdan.com # the base hostname & protocol for your site
 baseurl: . # the subpath of your site, e.g. /blog/. Leave blank for root
 >>>>>>> bd4a97e7b0a80f7cb5e4980886b70fea054d8518
