@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://pbogdan.com./sitemap.xml
+Sitemap: https://pbogdan.com/sitemap.xml
