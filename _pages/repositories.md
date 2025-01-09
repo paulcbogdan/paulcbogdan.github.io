@@ -2,7 +2,7 @@
 layout: page
 permalink: /code/
 title: Code
-description: Here, you can find links to the `NiChord` Python package I developed, to the code from several studies I led, and to some fun NFL analytics projects.
+description: Here, you can find links to the `NiChord` and `pkld` Python packages that I maintain, to the code from several studies I led, and to some fun NFL analytics projects.
 nav: true
 nav_order: 4
 ---

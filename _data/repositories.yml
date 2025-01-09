@@ -1,13 +1,14 @@
 #github_users:
 #  - paulcbogdan
 
-repo_description_lines_max: 0
+repo_description_lines_max: 2
 
 github_repos:
   - paulcbogdan/NiChord
+  - shobrook/pkld
   - paulcbogdan/ConnSearch
-  - paulcbogdan/NFL-play-by-player
-  - paulcbogdan/NFL_DensOrd
   - paulcbogdan/EmoTemporal
   - paulcbogdan/Suitability_Online_ET
   - paulcbogdan/SocExp_UG_PG_TG
+  - paulcbogdan/NFL-play-by-player
+  - paulcbogdan/NFL_DensOrd

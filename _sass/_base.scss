@@ -230,25 +230,11 @@ blockquote {
     }
   }
 }
-
-// Navbar customization
-
 .navbar {
   box-shadow: none;
   border-bottom: 1px solid var(--global-divider-color);
   background-color: var(--global-bg-color);
   opacity: 0.95;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.navbar .container {
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.navbar-collapse {
-  margin-right: 1rem;
 }
 
 .navbar .dropdown-menu {
@@ -285,7 +271,6 @@ blockquote {
   }
 
   .navbar-brand {
-    margin-left: 1rem;
     color: var(--global-text-color);
   }
 
@@ -328,8 +313,6 @@ blockquote {
 }
 
 .navbar-toggler {
-  padding-right: 0;
-  margin-right: 1rem;
   .icon-bar {
     display: block;
     width: 22px;
@@ -369,7 +352,8 @@ blockquote {
   }
 }
 
-#light-toggle {
+#light-toggle,
+#search-toggle {
   padding: 0;
   border: 0;
   background-color: inherit;
@@ -390,7 +374,7 @@ blockquote {
 
     a {
       i::before {
-        color: $grey-color;
+        color: var(--global-text-color);
         transition-property: all 0.2s ease-in-out;
       }
 
@@ -446,6 +430,7 @@ footer.fixed-bottom {
     color: var(--global-footer-text-color);
     padding-top: 9px;
     padding-bottom: 8px;
+    text-align: center;
   }
 
   a {
@@ -463,6 +448,10 @@ footer.sticky-bottom {
   padding-top: 40px;
   padding-bottom: 40px;
   font-size: 0.9rem;
+
+  .container {
+    text-align: center;
+  }
 }
 
 // CV
