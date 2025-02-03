@@ -8,7 +8,7 @@ function generateOrdinalSteps(lower, upper, steps = 6) {
   const vals = [];
   for (let i = 0; i < steps; i++) {
     const value = lower + i * stepSize;
-    const roundedValue = (Math.round(value * 100) / 100).toFixed(2); // Ensure two decimal places
+    const roundedValue = (Math.round(value * 100 + .0001) / 100).toFixed(2); // Ensure two decimal places
     result.push(floatToOrdinal(parseFloat(roundedValue))); // Convert back to float before passing
     vals.push(roundedValue);
   }
@@ -192,8 +192,8 @@ function makePlot(m1, // se1,
     y_min_ = y_min_ - gap_dif / 2;
 
     if (y_max_ > .9999) {
-      y_max_ = .999999
-      y_min_ = .949
+      y_max_ = .999999;
+      y_min_ = .949;
     }
 
     [ticktext, tickvals] = generateOrdinalSteps(y_min_, y_max_);
@@ -203,10 +203,10 @@ function makePlot(m1, // se1,
     console.log(y_max_);
 
     if (y_max_ > .9999) {
-      ticktext = ['95th', '96th', '97th', '98th', '99th'];
+      ticktext = ["95th", "96th", "97th", "98th", "99th"];
       tickvals = [.95, .96, .97, .98, .99];
-      y_max_ = 1.003
-      y_min_ = .949
+      y_max_ = 1.003;
+      y_min_ = .949;
     }
 
   } else if (is_rank) {
@@ -216,7 +216,13 @@ function makePlot(m1, // se1,
     tickvals = [.00, .2, .4, .6, .8, 1.0];
     ticktext = ["1st", "20th", "40th", "60th", "80th", "99th"];
   } else if (is_percent) {
-    yformat = ".0%";
+    if (y_max_ < 0.05) {
+      yformat = ".1%";
+    } else if (y_max_ > 0.95) {
+      yformat = ".1%";
+    } else {
+      yformat = ".0%";
+    }
   } else {
     yformat = ",.0";
   }
@@ -232,7 +238,7 @@ function makePlot(m1, // se1,
       type: "line",
       xaxis: "x_pf",
       yaxis: "y_pf",
-      mode: 'lines',
+      mode: "lines",
       line: {
         color: "#2a2424",
         width: 2,
@@ -247,7 +253,7 @@ function makePlot(m1, // se1,
       text: "(expected if 80% power)",
       showarrow: false,
       font: { size: 14 },
-      xanchor: 'left'
+      xanchor: "left",
     };
 
     if (y_min_ > 0.26) {
@@ -275,7 +281,7 @@ function makePlot(m1, // se1,
     showlegend: false,
     // margin: { t: 20},
     margin: {
-      l: 0.165 * width,
+      l: 0.175 * width,
       r: 0.05 * width,
       t: 0.15 * height,
       b: 0.1 * height,
@@ -575,8 +581,8 @@ searchButton.addEventListener("click", () => {
 
 
     })
-  .catch(error => {
-    document.getElementById("sentence0").innerHTML = `<p>No data found for "${word}".</p>`
-    console.error(error);
-  });
+    .catch(error => {
+      document.getElementById("sentence0").innerHTML = `<p>No data found for "${word}".</p>`;
+      console.error(error);
+    });
 });
