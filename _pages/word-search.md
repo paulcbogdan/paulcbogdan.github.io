@@ -42,24 +42,72 @@ pagination:
     }
 </style>
 
+<style>
+    body2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: white;
+        font-family: Arial, sans-serif;
+    }
+    
+    .container2 {
+        text-align: center;
+    }
+
+    input2 {
+        width: 250px;
+        padding: 10px;
+        font-size: 18px;
+        border: 2px solid black;
+        border-radius: 5px;
+        outline: none;
+    }
+
+    .buttons2 {
+        margin-top: 15px;
+    }
+
+    button2 {
+        background: black;
+        color: white;
+        padding: 5px 10px;
+        font-size: 16px;
+        margin: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: 0.3s;
+        border: 2px solid black;
+        box-sizing: border-box; /* Ensures the size stays the same */
+    }
+
+    button2:hover {
+        background: white;
+        color: black;
+        border: 2px solid black;
+    }
+</style>
+
+
+
 <div id="word-search" style="width: 1200px; text-align:center;">
     <h1>Search for a Word</h1>
-    <input type="text" id="word-input" value="controlling">
-    <button id="search-button">Search</button>
-    <br>
-    <div style="width:100%; height:100px;">
-    <div id='hspace' style="width:1200px; height:10px;"> </div>
-    <br>
+    <div id='hspace1' style="width:1200px; height:5px;"> </div>
+    <input type="text" id="word-input" value="controlling" style="width:150px; border: 1px solid black;">
+    <button2 id="search-button">Search</button2>
+    <div id='hspace0' style="width:1200px; height:25px;"> </div>
     <div id='sentence0' style="width:1200px; height:120px;font-size: 19px;"></div>
-    <div id='hspace' style="width:1200px; height:10px;"> </div>
-    <br>
-    <br>
+    <div id='hspace1' style="width:1200px; height:30px;"> </div>
     <div id="chart00" style="width: 300px; height: 300px; display: block; float: left;"></div>
     <div id="chart01" style="width: 300px; height: 300px; display: block; float: left;"></div>
     <div id="chart02" style="width: 300px; height: 300px; display: block; float: left;"></div>
     <div id="chart03" style="width: 300px; height: 300px; display: block; float: left;"></div>
     <br>
-    <div style="width: 1200px; height:150px; display: block; float: left;">
+    <div id='hspace2' style="width:1200px; height:100px;"> </div>
+    <br>
+    <div id='hspace3' style="width:1200px; height:180px;"> </div>
+    <div id='sentence1' style="width:1200px; height:90px;font-size: 19px;"></div>
     <br>
     <div id="chart10" style="width: 400px; height: 300px; display: block; float: left;"></div>
     <div id="chart11" style="width: 400px; height: 300px; display: block; float: left;"></div>

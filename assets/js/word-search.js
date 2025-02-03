@@ -1,13 +1,68 @@
 // const wordInput = document.getElementById("word-input");
 // const searchButton = document.getElementById("search-button");
 
+function generateOrdinalSteps(lower, upper, steps = 6) {
+  const stepSize = (upper - lower) / (steps - 1);
+  const result = [];
+
+  const vals = [];
+  for (let i = 0; i < steps; i++) {
+    const value = lower + i * stepSize;
+    const roundedValue = (Math.round(value * 100) / 100).toFixed(2); // Ensure two decimal places
+    result.push(floatToOrdinal(parseFloat(roundedValue))); // Convert back to float before passing
+    vals.push(roundedValue);
+  }
+
+  return [result, vals];
+}
+
+// Example usage:
+
+
+function floatToOrdinal(floatValue) {
+  // Extract the fractional part and convert it to a whole number
+  floatValue = floatValue.toFixed(2);
+  const fractionalPart = floatValue.toString().split(".")[1] || "0";
+  const number = parseInt(fractionalPart, 10);
+
+  // Determine the ordinal suffix
+  let suffix;
+  const lastDigit = number % 10;
+  const lastTwoDigits = number % 100;
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 13) {
+    suffix = "th";
+  } else {
+    switch (lastDigit) {
+      case 1:
+        suffix = "st";
+        break;
+      case 2:
+        suffix = "nd";
+        break;
+      case 3:
+        suffix = "rd";
+        break;
+      default:
+        suffix = "th";
+    }
+  }
+
+  // Return the formatted string
+  return `${number}${suffix}`;
+}
+
+// Example usage:
+// console.log(generateOrdinalSteps(0.2, 0.3));
+
 
 function makePlot(m1, // se1,
                   m1_low, m1_high,
                   m0, years, title,
                   red, green, blue, alpha,
                   y_max, y_min, is_percent,
-                  is_rank, do_div) {
+                  is_rank, is_rank_flex,
+                  do_div) {
   const trace_m1 = {
     x: years, y: m1,
     type: "scatter",
@@ -89,16 +144,74 @@ function makePlot(m1, // se1,
     };
   }
 
+  var trace_power_line = null;
+  if (title.includes("p-value rate")) {
+    trace_power_line = {
+      x: [2004 - buffer, years.at(-1) + buffer],
+      y: [0.26, 0.26],
+      type: "scatter",
+      xaxis: "x_pf",
+      yaxis: "y_pf",
+      mode: "lines",
+      line: {
+        color: "rgba(255, 0, 0, 0.95)",
+        width: 2,
+        dash: "dash",
+      },
+    };
+  }
+
   const width = do_div.clientWidth;
   const height = do_div.clientHeight;
 
   const high_low_dif = y_max - y_min;
 
 
+  var y_min_ = y_min - 0.05 * high_low_dif;
+  var y_max_ = y_max + 0.05 * high_low_dif;
   var yformat;
   var tickvals = null;
   var ticktext = null;
-  if (is_rank) {
+
+  if (is_rank_flex) {
+    y_min_ = y_min - 0.001 * high_low_dif;
+    y_max_ = y_max + 0.001 * high_low_dif;
+    if (y_max_ - y_min_ < 0.05) {
+      const M = (y_min_ + y_max_) / 2;
+      y_min_ = M - 0.025;
+      y_max_ = M + 0.025;
+    }
+
+
+    y_max_ = Math.round(y_max_ / 0.01) * 0.01;
+    y_min_ = Math.round(y_min_ / 0.01) * 0.01;
+    var gap = y_max_ - y_min_;
+    var gap_new = (Math.round(gap / 0.05) + 1) * 0.05;
+    var gap_dif = gap_new - gap;
+    y_max_ = y_max_ + gap_dif / 2;
+    y_min_ = y_min_ - gap_dif / 2;
+
+    if (y_max_ > .9999) {
+      y_max_ = .999999
+      y_min_ = .949
+    }
+
+    [ticktext, tickvals] = generateOrdinalSteps(y_min_, y_max_);
+    console.log(ticktext);
+    console.log(tickvals);
+    console.log(y_min_);
+    console.log(y_max_);
+
+    if (y_max_ > .9999) {
+      ticktext = ['95th', '96th', '97th', '98th', '99th'];
+      tickvals = [.95, .96, .97, .98, .99];
+      y_max_ = 1.003
+      y_min_ = .949
+    }
+
+  } else if (is_rank) {
+    y_min_ = 0.0;
+    y_max_ = 1.02;
     yformat = ".0%th";
     tickvals = [.00, .2, .4, .6, .8, 1.0];
     ticktext = ["1st", "20th", "40th", "60th", "80th", "99th"];
@@ -110,18 +223,47 @@ function makePlot(m1, // se1,
 
   // const yformat = is_percent === true ? ",.0%" : "";
 
-  var y_min_ = y_min - 0.05 * high_low_dif;
-  var y_max_ = y_max + 0.05 * high_low_dif;
-  if (is_rank) {
-    y_min_ = 0.0;
-    y_max_ = 1.02;
+  var trace_power_line = null;
+  var annotation = null;
+  if (title.includes("p-value rate")) {
+    trace_power_line = {
+      x: [2004 - buffer, 2024 + buffer],
+      y: [0.26, 0.26],
+      type: "line",
+      xaxis: "x_pf",
+      yaxis: "y_pf",
+      mode: 'lines',
+      line: {
+        color: "#2a2424",
+        width: 2,
+        dash: "dash",
+      },
+
+    };
+
+    annotation = {
+      x: 2005.2, // Position text at the center
+      y: 0.268, // Align with line height
+      text: "(expected if 80% power)",
+      showarrow: false,
+      font: { size: 14 },
+      xanchor: 'left'
+    };
+
+    if (y_min_ > 0.26) {
+      y_min_ = 0.255;
+    }
   }
+
 
   const layout = {
 
     title: {
       text: title,
+      // y: title.includes("<br>") ? 0.97 : 0.95,
+      // yanchor: "middle",
       font: {
+        // size: title.includes("<br>") ? 16 : null,
         color: `rgba(${red}, ${green}, ${blue}, 0.95)`,
       },
     },
@@ -167,7 +309,8 @@ function makePlot(m1, // se1,
 
     font: {
       family: "Font Awesome 6 Brands", // Set the font family
-      size: 16, // Set the default font size
+      // size: 16, // Set the default font size
+      size: title.includes("<br>") ? 14 : 16,
       color: "#2a2424", // Set the default font color
     },
   };
@@ -186,6 +329,11 @@ function makePlot(m1, // se1,
   if (trace_m1 !== null) {
     layout_data.push({ ...trace_m1, xaxis: "x".concat(title), yaxis: "y".concat(title) });
   }
+  if (trace_power_line !== null) {
+    layout_data.push(trace_power_line);
+    layout.annotations = [annotation];
+    console.log("add line");
+  }
 
   // const layout_data = [
   //   // { ...trace_usage, xaxis: 'x1', yaxis: 'y1' },
@@ -199,6 +347,7 @@ function makePlot(m1, // se1,
     displaylogo: false, // Hide Plotly logo
     displayModeBar: false, // Hide modebar (menu options)
     hovermode: false, // Hide hover text
+    showlegend: false, // Hide the legend
   };
 
   Plotly.newPlot(do_div, layout_data, layout, config);
@@ -243,7 +392,8 @@ function makePlotIndex(m1, // se1,
                        m1_low, m1_high,
                        m0, years, title,
                        red, green, blue, alpha,
-                       is_percent, is_rank, do_div, index) {
+                       is_percent, is_rank, do_div,
+                       is_rank_flex, index) {
   const m1_ = m1.slice(0, index + 1);
   // const se1_ = se1 === null ? null : se1.slice(0, index + 1);
   const m1_low_ = m1_low === null ? null : m1_low.slice(0, index + 1);
@@ -254,8 +404,13 @@ function makePlotIndex(m1, // se1,
   var y_min;
 
   const title_ = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${title}`;
+  // const title_ = `<span style="text-align: center">${title}</span>`;
 
-  if (is_rank) {
+  // const title_ = title;
+
+  if (is_rank_flex) {
+    [y_max, y_min] = get_min_max_m0_m1(m1, m1_low, m1_high, m0);
+  } else if (is_rank) {
     y_max = 1.0;
     y_min = 0.0;
   } else {
@@ -267,7 +422,7 @@ function makePlotIndex(m1, // se1,
     m0_, years_, title_,
     red, green, blue, alpha,
     y_max, y_min, is_percent, is_rank,
-    do_div);
+    is_rank_flex, do_div);
 }
 
 searchButton.addEventListener("click", () => {
@@ -288,6 +443,10 @@ searchButton.addEventListener("click", () => {
         if (index > data.temporal.years.length - 1) return;
         const tStart = performance.now();
         const chartDiv00 = document.getElementById("chart00");
+        const chartDiv01 = document.getElementById("chart01");
+        const chartDiv02 = document.getElementById("chart02");
+        const chartDiv03 = document.getElementById("chart03");
+
         makePlotIndex(data.temporal.p_fragile.m1,
           data.temporal.p_fragile.m1_low, data.temporal.p_fragile.m1_high,
           // data.temporal.p_fragile.se1,
@@ -296,48 +455,35 @@ searchButton.addEventListener("click", () => {
           "Fragile p-value rate",
           94, 184, 242, prop / 4,
           true, false,
-          chartDiv00, index);
+          chartDiv02, false, index);
 
-        const chartDiv01 = document.getElementById("chart01");
         makePlotIndex(data.temporal.p_fragile.rank,
           // null, null,
           data.temporal.p_fragile.rank_low, data.temporal.p_fragile.rank_high,
           null,
 
           data.temporal.years,
-          "p-fragile (%tile)",
+          "Fragile p (percentile)",
           3, 152, 252, prop / 4,
           true, true,
-          chartDiv01, index);
+          chartDiv03, false, index);
         //
 
-        const chartDiv02 = document.getElementById("chart02");
         makePlotIndex(data.temporal.usage.m1,
           data.temporal.usage.m1_low, data.temporal.usage.m1_high, null,
           data.temporal.years,
           "Usage",
           255, 89, 98, prop / 4,
           true, false,
-          chartDiv02, index);
+          chartDiv00, false, index);
 
-        const chartDiv03 = document.getElementById("chart03");
         makePlotIndex(data.temporal.usage.rank,
           data.temporal.usage.rank_low, data.temporal.usage.rank_high, null,
           data.temporal.years,
-          "Usage (%tile)",
+          "Usage (percentile)",
           237, 12, 24, prop / 4,
           true, true,
-          chartDiv03, index);
-        //
-        // const chartDiv03 = document.getElementById("chart03");
-        // makePlotIndex(data.temporal.usage_rank,
-        //   null, null, data.temporal.years,
-        //   "Usage (%tile)",
-        //   255, 89, 98, prop / 4,
-        //   true, true,
-        //   chartDiv03, index);
-        //
-        //
+          chartDiv01, true, index);
 
         const chartDiv10 = document.getElementById("chart10");
         makePlotIndex(data.temporal.SNIP.rank,
@@ -346,10 +492,10 @@ searchButton.addEventListener("click", () => {
           // data.temporal.SNIP.se1,
           // data.temporal.SNIP.m0,
           data.temporal.years,
-          "Impact factor (%tile)",
+          "Impact factor (percentile)",
           105, 219, 99, prop / 4,
           true, true,
-          chartDiv10, index);
+          chartDiv10, false, index);
 
         const chartDiv11 = document.getElementById("chart11");
         makePlotIndex(data.temporal.cites_year.rank,
@@ -358,22 +504,22 @@ searchButton.addEventListener("click", () => {
           // data.temporal.SNIP.se1,
           // data.temporal.SNIP.m0,
           data.temporal.years,
-          "Citations (%tile)",
+          "Citations (percentile)",
           255, 168, 82, prop / 4,
           true, true,
-          chartDiv11, index);
+          chartDiv11, false, index);
 
         const chartDiv12 = document.getElementById("chart12");
-        makePlotIndex(data.temporal.target_rank.rank,
-          data.temporal.target_rank.rank_low, data.temporal.target_rank.rank_high,
+        makePlotIndex(data.temporal.target_score.rank,
+          data.temporal.target_score.rank_low, data.temporal.target_score.rank_high,
           null,
           // data.temporal.SNIP.se1,
           // data.temporal.SNIP.m0,
           data.temporal.years,
-          "University ranking (%tile)",
+          "University ranking (percentile)",
           170, 117, 250, prop / 4,
           true, true,
-          chartDiv12, index);
+          chartDiv12, false, index);
 
         // const chartDiv11 = document.getElementById("chart11");
         // makePlotIndex(data.temporal.cites_year.rank, null, null,
@@ -411,7 +557,8 @@ searchButton.addEventListener("click", () => {
       }
 
       document.getElementById("sentence0").innerHTML = data.statement0;
-      console.log(data.statement0);
+      document.getElementById("sentence1").innerHTML = data.statement1;
+
       loop(0, 0);
 
       // const chartDiv01 = document.getElementById("chart01");
@@ -427,12 +574,9 @@ searchButton.addEventListener("click", () => {
       //   chartDiv02);
 
 
-    });
-
-  // .catch(error => {
-  //   chartDiv.innerHTML = `<p>No data found for "${word}".</p>`;
-  //   chartDiv.innerHTML = `<p>No data found for "${apiUrl}".</p>`;
-  //
-  //   console.error(error);
-  // });
+    })
+  .catch(error => {
+    document.getElementById("sentence0").innerHTML = `<p>No data found for "${word}".</p>`
+    console.error(error);
+  });
 });
