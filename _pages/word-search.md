@@ -42,18 +42,24 @@ pagination:
     }
 </style>
 
-
-
 <div id="word-search" style="width: 1200px; text-align:center;">
     <h1>Search for a Word</h1>
     <input type="text" id="word-input" value="controlling">
     <button id="search-button">Search</button>
     <br>
     <div style="width:100%; height:100px;">
+    <div id='hspace' style="width:1200px; height:10px;"> </div>
     <br>
-    <div id="chart00" style="width: 400px; height: 300px; display: block; float: left;"></div>
-    <div id="chart01" style="width: 400px; height: 300px; display: block; float: left;"></div>
-    <div id="chart02" style="width: 400px; height: 300px; display: block; float: left;"></div>
+    <div id='sentence0' style="width:1200px; height:120px;font-size: 19px;"></div>
+    <div id='hspace' style="width:1200px; height:10px;"> </div>
+    <br>
+    <br>
+    <div id="chart00" style="width: 300px; height: 300px; display: block; float: left;"></div>
+    <div id="chart01" style="width: 300px; height: 300px; display: block; float: left;"></div>
+    <div id="chart02" style="width: 300px; height: 300px; display: block; float: left;"></div>
+    <div id="chart03" style="width: 300px; height: 300px; display: block; float: left;"></div>
+    <br>
+    <div style="width: 1200px; height:150px; display: block; float: left;">
     <br>
     <div id="chart10" style="width: 400px; height: 300px; display: block; float: left;"></div>
     <div id="chart11" style="width: 400px; height: 300px; display: block; float: left;"></div>
