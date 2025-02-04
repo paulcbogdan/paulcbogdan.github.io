@@ -218,7 +218,7 @@ function makePlot(m1, // se1,
     tickvals = [.0, .2, .4, .6, .8, 1.0];
     ticktext = ["1st", "20th", "40th", "60th", "80th", "99th"];
   } else if (is_percent) {
-    if (y_max_ < .005) {
+    if (y_max_ < .01) {
       yformat = ".2%";
       l_margin = 0.22;
     } else if (y_max_ < 0.05) {
@@ -458,10 +458,15 @@ function makePlotIndex(m1, // se1,
     is_rank_flex, do_div);
 }
 
-function processWordData(data) {
+function processWordData(data, signal) {
 
 
   function loop(index, prop) {
+    if (signal.aborted) {
+      console.log("Request aborted, skipping processWordData");
+      return;
+    }
+
     if (index > data.temporal.years.length - 1) return;
     const tStart = performance.now();
     const chartDiv00 = document.getElementById("chart00");
@@ -565,12 +570,22 @@ function processWordData(data) {
   loop(0, 0);
 }
 
+let abortController = null;
 
 searchButton.addEventListener("click", () => {
+  // Abort the previous request if it exists
+  if (abortController) {
+    abortController.abort();
+  }
+
+  // Create a new AbortController for the current request
+  abortController = new AbortController();
+  const signal = abortController.signal;
+
   const word = wordInput.value.trim().toLowerCase();
   const apiUrl = `../assets/word_data/${word}.json`;
 
-  fetch(apiUrl)
+  fetch(apiUrl, { signal })
     .then(response => {
       if (!response.ok) {
         throw new Error(`Word not found: ${word}`);
@@ -578,7 +593,7 @@ searchButton.addEventListener("click", () => {
       return response.json();
     })
     .then(data => {
-      processWordData(data);
+      processWordData(data, signal);
     })
     .catch(error => {
       document.getElementById("sentence0").innerHTML = `<p>No data found for "${word}".</p>`;
@@ -588,6 +603,15 @@ searchButton.addEventListener("click", () => {
 
 
 randomButton.addEventListener("click", () => {
+
+  if (abortController) {
+    abortController.abort();
+  }
+
+  // Create a new AbortController for the current request
+  abortController = new AbortController();
+  const signal = abortController.signal;
+
   fetch("../assets/word_data_help/file_list.json")
     .then(response => response.json())
     .then(files => {
@@ -605,7 +629,7 @@ randomButton.addEventListener("click", () => {
           return response.json();
         })
         .then(data => {
-          processWordData(data);
+          processWordData(data, signal);
         })
         .catch(error => {
           document.getElementById("sentence0").innerHTML = `<p>No data found for "${word}".</p>`;
@@ -614,32 +638,6 @@ randomButton.addEventListener("click", () => {
 
     })
     .catch(error => console.error("Error:", error));
-
-//
-//   const fs = require("fs");
-//   const path = require("path");
-//
-// // Specify the directory path
-//   const directoryPath = "../assets/word_data";
-//
-// // Read the contents of the directory
-//   fs.readdir(directoryPath, (err, files) => {
-//     if (err) {
-//       return console.error("Unable to scan directory: " + err);
-//     }
-//
-//     // Filter out directories (optional, if you only want files)
-//     const fileList = files.filter(file => {
-//       return fs.statSync(path.join(directoryPath, file)).isFile();
-//     });
-//
-//     // Check if there are any files
-//     if (fileList.length === 0) {
-//       return console.log("No files found in the directory.");
-//     }
-//
-//     // Randomly select a file
-//     const randomFile = fileList[Math.floor(Math.random() * fileList.length)];
 
 });
 
