@@ -640,8 +640,14 @@ randomButton.addEventListener("click", () => {
   // Create a new AbortController for the current request
   abortController = new AbortController();
   const signal = abortController.signal;
+  var dir_in;
+  if (getSliderState()) {
+    dir_in = "../assets/word_data_help/file_list.json";
+  } else {
+    dir_in = "../assets/word_data_help/file_list_neuro.json";
+  }
 
-  fetch("../assets/word_data_help/file_list.json")
+  fetch(dir_in)
     .then(response => response.json())
     .then(files => {
       const randomFile = files[Math.floor(Math.random() * files.length)];
