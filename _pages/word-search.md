@@ -94,15 +94,15 @@ pagination:
 <div id="word-search" style="width: 1200px; text-align:center;">
     <h1>Search for a Word</h1>
     <div id='hspace1' style="width:1200px; height:5px;"> </div>
-    <input type="text" id="word-input" value="controlling" style="width:150px; border: 1px solid black;">
+    <input type="text" id="word-input" style="width:150px; border: 1px solid black;">
     <button2 id="search-button">Search</button2>
+    <button2 id="random-button">Random word</button2>
     <div id='hspace0' style="width:1200px; height:25px;"> </div>
-    <div id='sentence0' style="width:1200px; height:120px;font-size: 19px;"></div>
+    <div id='sentence0' style="width:1200px; height:120px;font-size: 19px;">Enter a word above and figures will appear that illustrate trends among the psychology papers containing said word.<br>This webpage was prepared alongside the manuscript <a href="../assets/pdf/Bogdan_2025_PsyChange_Manuscript_SuppMat.pdf">"One Decade Into the Replication Crisis, How Have Psychological Results Changed?"</a> (Bogdan, 2025; <i>Adv. Meth. Pract. Psychol. Sci.</i>).</div>
     <div id='hspace1' style="width:1200px; height:30px;"> </div>
-    <div id="chart00" style="width: 300px; height: 300px; display: block; float: left;"></div>
-    <div id="chart01" style="width: 300px; height: 300px; display: block; float: left;"></div>
-    <div id="chart02" style="width: 300px; height: 300px; display: block; float: left;"></div>
-    <div id="chart03" style="width: 300px; height: 300px; display: block; float: left;"></div>
+    <div id="chart00" style="width: 400px; height: 300px; display: block; float: left;"></div>
+    <div id="chart02" style="width: 400px; height: 300px; display: block; float: left;"></div>
+    <div id="chart03" style="width: 400px; height: 300px; display: block; float: left;"></div>
     <br>
     <div id='hspace2' style="width:1200px; height:100px;"> </div>
     <br>
@@ -127,6 +127,7 @@ pagination:
 <script>
 const wordInput = document.getElementById("word-input");
 const searchButton = document.getElementById("search-button");
+const randomButton = document.getElementById("random-button");
 </script>
 
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>

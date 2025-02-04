@@ -97,7 +97,7 @@ function makePlot(m1, // se1,
     // last_val_low = p_frag_low[p_frag_low.length - 1];
 
     trace2 = {
-      x: [2004 - buffer].concat(years.slice(1, -1), [years.at(-1) + buffer]),
+      x: [years.at(0) - buffer].concat(years.slice(1, -1), [years.at(-1) + buffer]),
       y: m1_high, // upper bound
       type: "scatter",
       fill: "tonexty",
@@ -110,7 +110,7 @@ function makePlot(m1, // se1,
     };
 
     trace3 = {
-      x: [2004 - buffer].concat(years.slice(1, -1), [years.at(-1) + buffer]),
+      x: [years.at(0) - buffer].concat(years.slice(1, -1), [years.at(-1) + buffer]),
       y: m1_low,
       type: "scatter",
       line: {
@@ -191,6 +191,8 @@ function makePlot(m1, // se1,
     y_max_ = y_max_ + gap_dif / 2;
     y_min_ = y_min_ - gap_dif / 2;
 
+    var l_margin = 0.175;
+
     if (y_max_ > .9999) {
       y_max_ = .999999;
       y_min_ = .949;
@@ -210,24 +212,45 @@ function makePlot(m1, // se1,
     }
 
   } else if (is_rank) {
-    y_min_ = 0.0;
+    y_min_ = 0;
     y_max_ = 1.02;
     yformat = ".0%th";
-    tickvals = [.00, .2, .4, .6, .8, 1.0];
+    tickvals = [.0, .2, .4, .6, .8, 1.0];
     ticktext = ["1st", "20th", "40th", "60th", "80th", "99th"];
   } else if (is_percent) {
-    if (y_max_ < 0.05) {
+    if (y_max_ < .005) {
+      yformat = ".2%";
+      l_margin = 0.22;
+    } else if (y_max_ < 0.05) {
       yformat = ".1%";
+      l_margin = 0.2;
     } else if (y_max_ > 0.95) {
       yformat = ".1%";
     } else {
+      if (y_max_ - y_min_ < 0.05) {
+        y_min_ = y_min - 0.001 * high_low_dif;
+        y_max_ = y_max + 0.001 * high_low_dif;
+        const M = (y_min_ + y_max_) / 2;
+        y_min_ = M - 0.025;
+        y_max_ = M + 0.025;
+        y_max_ = Math.round(y_max_ / 0.01) * 0.01;
+        y_min_ = Math.round(y_min_ / 0.01) * 0.01;
+        var gap = y_max_ - y_min_;
+        var gap_new = (Math.round(gap / 0.05)) * 0.05;
+        var gap_dif = gap_new - gap;
+        y_max_ = y_max_ + gap_dif / 2;
+        y_min_ = y_min_ - gap_dif / 2;
+      }
       yformat = ".0%";
     }
   } else {
     yformat = ",.0";
   }
 
-  // const yformat = is_percent === true ? ",.0%" : "";
+  var y_annot_spot = 0.26 + (y_max_ - .258) * .08;
+  if (y_annot_spot < .267) {
+    y_annot_spot = .275;
+  }
 
   var trace_power_line = null;
   var annotation = null;
@@ -249,10 +272,11 @@ function makePlot(m1, // se1,
 
     annotation = {
       x: 2005.2, // Position text at the center
-      y: 0.268, // Align with line height
-      text: "(expected if 80% power)",
+      y: y_annot_spot, // Align with line height
+      // text: "(expected if<br>    80% power)",
+      text: "(rate at 80% power)",
       showarrow: false,
-      font: { size: 14 },
+      font: { size: 16 },
       xanchor: "left",
     };
 
@@ -281,7 +305,7 @@ function makePlot(m1, // se1,
     showlegend: false,
     // margin: { t: 20},
     margin: {
-      l: 0.175 * width,
+      l: l_margin * width,
       r: 0.05 * width,
       t: 0.15 * height,
       b: 0.1 * height,
@@ -296,6 +320,8 @@ function makePlot(m1, // se1,
       tickwidth: 2,
       ticks: "outside", // Show tick marks outside the axis
       range: [2004 - buffer, 2024 + buffer],
+      automargin: true,
+      // zeroline: true,
       // range: [years[0] - 0.25, years[years.length - 1] + 0.25],
 
     },
@@ -311,6 +337,8 @@ function makePlot(m1, // se1,
       range: [y_min_, y_max_],
       tickvals: tickvals,
       ticktext: ticktext,
+      automargin: true,
+      // zeroline: true,
     },
 
     font: {
@@ -338,7 +366,6 @@ function makePlot(m1, // se1,
   if (trace_power_line !== null) {
     layout_data.push(trace_power_line);
     layout.annotations = [annotation];
-    console.log("add line");
   }
 
   // const layout_data = [
@@ -431,6 +458,114 @@ function makePlotIndex(m1, // se1,
     is_rank_flex, do_div);
 }
 
+function processWordData(data) {
+
+
+  function loop(index, prop) {
+    if (index > data.temporal.years.length - 1) return;
+    const tStart = performance.now();
+    const chartDiv00 = document.getElementById("chart00");
+    const chartDiv01 = document.getElementById("chart01");
+    const chartDiv02 = document.getElementById("chart02");
+    const chartDiv03 = document.getElementById("chart03");
+
+    makePlotIndex(data.temporal.p_fragile.m1,
+      data.temporal.p_fragile.m1_low, data.temporal.p_fragile.m1_high,
+      // data.temporal.p_fragile.se1,
+      data.temporal.p_fragile.m0,
+      data.temporal.p_fragile.years,
+      "Fragile p-value rate",
+      94, 184, 242, prop / 4,
+      true, false,
+      chartDiv02, false, index);
+
+    makePlotIndex(data.temporal.p_fragile.rank,
+      // null, null,
+      data.temporal.p_fragile.rank_low, data.temporal.p_fragile.rank_high,
+      null,
+      data.temporal.p_fragile.years,
+      "Fragile p (percentile)",
+      3, 152, 252, prop / 4,
+      true, true,
+      chartDiv03, false, index);
+    //
+
+    makePlotIndex(data.temporal.usage.m1,
+      data.temporal.usage.m1_low, data.temporal.usage.m1_high, null,
+      data.temporal.years,
+      "Usage",
+      255, 89, 98, prop / 4,
+      true, false,
+      chartDiv00, false, index);
+
+    // makePlotIndex(data.temporal.usage.rank,
+    //   data.temporal.usage.rank_low, data.temporal.usage.rank_high, null,
+    //   data.temporal.years,
+    //   "Usage (percentile)",
+    //   237, 12, 24, prop / 4,
+    //   true, true,
+    //   chartDiv01, true, index);
+
+    const chartDiv10 = document.getElementById("chart10");
+    makePlotIndex(data.temporal.SNIP.rank,
+      data.temporal.SNIP.rank_low, data.temporal.SNIP.rank_high,
+      null,
+      // data.temporal.SNIP.se1,
+      // data.temporal.SNIP.m0,
+      data.temporal.SNIP.years,
+      "Impact factor (percentile)",
+      105, 219, 99, prop / 4,
+      true, true,
+      chartDiv10, false, index);
+
+    const chartDiv11 = document.getElementById("chart11");
+    makePlotIndex(data.temporal.log_cites_rel_journal_z.rank,
+      data.temporal.log_cites_rel_journal_z.rank_low,
+      data.temporal.log_cites_rel_journal_z.rank_high,
+      null,
+      // data.temporal.SNIP.se1,
+      // data.temporal.SNIP.m0,
+      data.temporal.log_cites_rel_journal_z.years,
+      "Citations (percentile)",
+      255, 168, 82, prop / 4,
+      true, true,
+      chartDiv11, false, index);
+
+    const chartDiv12 = document.getElementById("chart12");
+    makePlotIndex(data.temporal.target_score_z.rank,
+      data.temporal.target_score_z.rank_low, data.temporal.target_score_z.rank_high,
+      null,
+      // data.temporal.SNIP.se1,
+      // data.temporal.SNIP.m0,
+      data.temporal.target_score_z.years,
+      "University ranking (percentile)",
+      170, 117, 250, prop / 4,
+      true, true,
+      chartDiv12, false, index);
+
+    const tEnd = performance.now();
+    const timeDiff = tEnd - tStart;
+    if (index > data.temporal.years.length - 2) {
+      if (prop > .99) {
+        return;
+      }
+      setTimeout(() => {
+        loop(index, prop + 0.1);
+      }, 50 - timeDiff);
+    }
+
+    setTimeout(() => {
+      loop(index + 1, prop);
+    }, 50 - timeDiff);
+  }
+
+  document.getElementById("sentence0").innerHTML = data.statement0;
+  document.getElementById("sentence1").innerHTML = data.statement1;
+
+  loop(0, 0);
+}
+
+
 searchButton.addEventListener("click", () => {
   const word = wordInput.value.trim().toLowerCase();
   const apiUrl = `../assets/word_data/${word}.json`;
@@ -443,146 +578,84 @@ searchButton.addEventListener("click", () => {
       return response.json();
     })
     .then(data => {
-
-
-      function loop(index, prop) {
-        if (index > data.temporal.years.length - 1) return;
-        const tStart = performance.now();
-        const chartDiv00 = document.getElementById("chart00");
-        const chartDiv01 = document.getElementById("chart01");
-        const chartDiv02 = document.getElementById("chart02");
-        const chartDiv03 = document.getElementById("chart03");
-
-        makePlotIndex(data.temporal.p_fragile.m1,
-          data.temporal.p_fragile.m1_low, data.temporal.p_fragile.m1_high,
-          // data.temporal.p_fragile.se1,
-          data.temporal.p_fragile.m0,
-          data.temporal.years,
-          "Fragile p-value rate",
-          94, 184, 242, prop / 4,
-          true, false,
-          chartDiv02, false, index);
-
-        makePlotIndex(data.temporal.p_fragile.rank,
-          // null, null,
-          data.temporal.p_fragile.rank_low, data.temporal.p_fragile.rank_high,
-          null,
-
-          data.temporal.years,
-          "Fragile p (percentile)",
-          3, 152, 252, prop / 4,
-          true, true,
-          chartDiv03, false, index);
-        //
-
-        makePlotIndex(data.temporal.usage.m1,
-          data.temporal.usage.m1_low, data.temporal.usage.m1_high, null,
-          data.temporal.years,
-          "Usage",
-          255, 89, 98, prop / 4,
-          true, false,
-          chartDiv00, false, index);
-
-        makePlotIndex(data.temporal.usage.rank,
-          data.temporal.usage.rank_low, data.temporal.usage.rank_high, null,
-          data.temporal.years,
-          "Usage (percentile)",
-          237, 12, 24, prop / 4,
-          true, true,
-          chartDiv01, true, index);
-
-        const chartDiv10 = document.getElementById("chart10");
-        makePlotIndex(data.temporal.SNIP.rank,
-          data.temporal.SNIP.rank_low, data.temporal.SNIP.rank_high,
-          null,
-          // data.temporal.SNIP.se1,
-          // data.temporal.SNIP.m0,
-          data.temporal.years,
-          "Impact factor (percentile)",
-          105, 219, 99, prop / 4,
-          true, true,
-          chartDiv10, false, index);
-
-        const chartDiv11 = document.getElementById("chart11");
-        makePlotIndex(data.temporal.cites_year.rank,
-          data.temporal.cites_year.rank_low, data.temporal.cites_year.rank_high,
-          null,
-          // data.temporal.SNIP.se1,
-          // data.temporal.SNIP.m0,
-          data.temporal.years,
-          "Citations (percentile)",
-          255, 168, 82, prop / 4,
-          true, true,
-          chartDiv11, false, index);
-
-        const chartDiv12 = document.getElementById("chart12");
-        makePlotIndex(data.temporal.target_score.rank,
-          data.temporal.target_score.rank_low, data.temporal.target_score.rank_high,
-          null,
-          // data.temporal.SNIP.se1,
-          // data.temporal.SNIP.m0,
-          data.temporal.years,
-          "University ranking (percentile)",
-          170, 117, 250, prop / 4,
-          true, true,
-          chartDiv12, false, index);
-
-        // const chartDiv11 = document.getElementById("chart11");
-        // makePlotIndex(data.temporal.cites_year.rank, null, null,
-        //   // data.temporal.SNIP.se1,
-        //   // data.temporal.SNIP.m0,
-        //   data.temporal.years,
-        //   "Citations (%tile)",
-        //   255, 89, 98, prop / 4,
-        //   true, true,
-        //   chartDiv11, index);
-        //
-        // const chartDiv12 = document.getElementById("chart12");
-        // makePlotIndex(data.temporal.target_rank.rank, null, null,
-        //   // data.temporal.SNIP.se1,
-        //   // data.temporal.SNIP.m0,
-        //   data.temporal.years,
-        //   "University ranking (%tile)",
-        //   255, 89, 98, prop / 4,
-        //   true, true,
-        //   chartDiv12, index);
-        const tEnd = performance.now();
-        const timeDiff = tEnd - tStart;
-        if (index > data.temporal.years.length - 2) {
-          if (prop > .99) {
-            return;
-          }
-          setTimeout(() => {
-            loop(index, prop + 0.1);
-          }, 50 - timeDiff);
-        }
-
-        setTimeout(() => {
-          loop(index + 1, prop);
-        }, 50 - timeDiff);
-      }
-
-      document.getElementById("sentence0").innerHTML = data.statement0;
-      document.getElementById("sentence1").innerHTML = data.statement1;
-
-      loop(0, 0);
-
-      // const chartDiv01 = document.getElementById("chart01");
-      // makePlot(m1_outer, se1_outer, m0_outer, years_outer,
-      //   "p-fragile percentage",
-      //   255, 161, 132, 0.25,
-      //   chartDiv01);
-      //
-      // const chartDiv02 = document.getElementById("chart02");
-      // makePlot(m1_outer, se1_outer, m0_outer, years_outer,
-      //   "p-fragile percentage",
-      //   62, 130, 240, 0.25,
-      //   chartDiv02);
-
-
+      processWordData(data);
     })
     .catch(error => {
       document.getElementById("sentence0").innerHTML = `<p>No data found for "${word}".</p>`;
       console.error(error);
     });
 });
+
+
+randomButton.addEventListener("click", () => {
+  fetch("../assets/word_data_help/file_list.json")
+    .then(response => response.json())
+    .then(files => {
+      const randomFile = files[Math.floor(Math.random() * files.length)];
+      console.log(randomFile);
+      const word = randomFile.split(".")[0];
+      const apiUrl = `../assets/word_data/${word}.json`;
+      wordInput.value = word;
+
+      fetch(apiUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Word not found: ${word}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          processWordData(data);
+        })
+        .catch(error => {
+          document.getElementById("sentence0").innerHTML = `<p>No data found for "${word}".</p>`;
+          console.error(error);
+        });
+
+    })
+    .catch(error => console.error("Error:", error));
+
+//
+//   const fs = require("fs");
+//   const path = require("path");
+//
+// // Specify the directory path
+//   const directoryPath = "../assets/word_data";
+//
+// // Read the contents of the directory
+//   fs.readdir(directoryPath, (err, files) => {
+//     if (err) {
+//       return console.error("Unable to scan directory: " + err);
+//     }
+//
+//     // Filter out directories (optional, if you only want files)
+//     const fileList = files.filter(file => {
+//       return fs.statSync(path.join(directoryPath, file)).isFile();
+//     });
+//
+//     // Check if there are any files
+//     if (fileList.length === 0) {
+//       return console.log("No files found in the directory.");
+//     }
+//
+//     // Randomly select a file
+//     const randomFile = fileList[Math.floor(Math.random() * fileList.length)];
+
+});
+
+
+// const word = wordInput.value.trim().toLowerCase();
+// const apiUrl = `../assets/word_data/${word}.json`;
+//
+// fetch(apiUrl)
+//   .then(response => {
+//     if (!response.ok) {
+//       throw new Error(`Word not found: ${word}`);
+//     }
+//     return response.json();
+//   })
+//   .then(data => {
+//     processWordData(data);
+//   })
+//   .catch(error => {
+//     document.getElementById("sentence0").innerHTML = `<p>No data found for "${word}".</p>`;
