@@ -166,7 +166,7 @@ pagination:
         <input type="checkbox" id="neuroPsychToggle_ps" checked>
         <span class="slider_ps"></span>
     </label>
-    <div id="buttonContainer" style="width: 200px; text-align: right; position: absolute; white-space: nowrap; top: 175px; right: 100px;">
+    <div id="buttonContainer" style="width: 200px; text-align: center; position: absolute; white-space: nowrap; top: 175px; right: 30px; box-sizing: border-box; padding: 0;">
         <!-- The button will appear here -->
     </div>
     <span id="toggleLabel_ps" style="color:red;">Psych</span>
