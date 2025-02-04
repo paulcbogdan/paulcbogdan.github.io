@@ -181,9 +181,6 @@ function makePlot(m1, // se1,
   var tickvals = null;
   var ticktext = null;
 
-  if (y_min_ < 0) {
-    y_min_ = 0;
-  }
 
   if (is_rank_flex) {
     y_min_ = y_min - 0.001 * high_low_dif;
@@ -295,6 +292,9 @@ function makePlot(m1, // se1,
     if (y_min_ > 0.26) {
       y_min_ = 0.255;
     }
+  }
+  if (y_min_ < 0) {
+    y_min_ = 0;
   }
 
 
@@ -608,6 +608,8 @@ searchButton.addEventListener("click", () => {
   if (abortController) {
     abortController.abort();
   }
+  showButton();
+
 
   // Create a new AbortController for the current request
   abortController = new AbortController();
@@ -644,6 +646,7 @@ randomButton.addEventListener("click", () => {
   if (abortController) {
     abortController.abort();
   }
+  showButton();
 
   // Create a new AbortController for the current request
   abortController = new AbortController();

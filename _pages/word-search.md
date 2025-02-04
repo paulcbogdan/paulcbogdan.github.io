@@ -166,6 +166,9 @@ pagination:
         <input type="checkbox" id="neuroPsychToggle_ps" checked>
         <span class="slider_ps"></span>
     </label>
+    <div id="buttonContainer" style="width: 200px; text-align: right; position: absolute; white-space: nowrap; top: 175px; right: 100px;">
+        <!-- The button will appear here -->
+    </div>
     <span id="toggleLabel_ps" style="color:red;">Psych</span>
     <div id='hspace0' style="width:1200px; height:25px;"> </div>
     <div id='sentence0' style="width:1200px; height:155px;font-size: 19px;">Enter a word above and figures will appear that illustrate trends among the psych/neuro papers containing said word.<br>These figures are based on a dataset of ~250k empirical psychology papers published from 2004-2024.<br>This webpage was prepared alongside the manuscript <a href="../assets/pdf/Bogdan_2025_PsyChange_Manuscript_SuppMat.pdf">"One Decade Into the Replication Crisis, How Have Psychological Results Changed?"</a> (Bogdan, <i>in press</i>; <i>Adv. Meth. Pract. Psychol. Sci.</i>), although the manuscript did not cover neuroscience.</div>
@@ -198,25 +201,5 @@ const randomButton = document.getElementById("random-button");
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="../assets/js/word-search.js"></script>
+<script src="../assets/js/url_arg_handling.js"></script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const toggle_ps = document.getElementById("neuroPsychToggle_ps");
-    const label_ps = document.getElementById("toggleLabel_ps");
-
-    // Set default state to "Psych"
-    toggle_ps.checked = true;
-    label_ps.textContent = 'Psych';
-
-    // Add event listener to update the label and background color
-    toggle_ps.addEventListener('change', function() {
-        if (toggle_ps.checked) {
-            label_ps.textContent = 'Psych';
-            label_ps.style.color = 'red'; // Default text color
-        } else {
-            label_ps.textContent = 'Neuro';
-            label_ps.style.color = '#0090ff'; // Red text color for "Neuro"
-        }
-    });
-});
-</script>
