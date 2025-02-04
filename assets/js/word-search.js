@@ -646,7 +646,6 @@ randomButton.addEventListener("click", () => {
   if (abortController) {
     abortController.abort();
   }
-  showButton();
 
   // Create a new AbortController for the current request
   abortController = new AbortController();
@@ -673,6 +672,7 @@ randomButton.addEventListener("click", () => {
 
       // const apiUrl = `../assets/word_data/${word}.json`;
       wordInput.value = word;
+      showButton();
 
       fetch(apiUrl)
         .then(response => {
