@@ -13,7 +13,7 @@ profile:
   image: prof_pic.jpg
   image_circular: True # crops the image to make it circular
   more_info: >
-    <br style="line-height: 10px"><a href="assets\pdf\BogdanPaul_CV_Sep_2024.pdf">Curriculum Vitae</a></br><br></br>
+    <br style="line-height: 10px"><a href="assets\pdf\BogdanPaul_CV_Feb_2025.pdf">Curriculum Vitae</a></br><br></br>
     <br>Rm B254, Box 90999</br>
     <br>Duke University LSRC Bldg</br>
     <br>Durham, NC 27708</br>

@@ -79,6 +79,7 @@ function makePlot(m1, // se1,
       width: 5,
       shape: "spline",
     },
+    hoverinfo: "none",
   };
 
 
@@ -106,6 +107,8 @@ function makePlot(m1, // se1,
         color: "transparent",
         shape: "spline",
       },
+      hoverinfo: "none",
+
 
     };
 
@@ -117,6 +120,8 @@ function makePlot(m1, // se1,
         color: "transparent",
         shape: "spline",
       },
+      hoverinfo: "none",
+
       // showlegend: false,
     };
   }
@@ -141,6 +146,8 @@ function makePlot(m1, // se1,
         color: "#2a2424",
         width: 5,
       },
+      hoverinfo: "none",
+
     };
   }
 
@@ -158,6 +165,7 @@ function makePlot(m1, // se1,
         width: 2,
         dash: "dash",
       },
+      hoverinfo: "none",
     };
   }
 
@@ -303,6 +311,7 @@ function makePlot(m1, // se1,
     dragmode: false,
     displayModeBar: false, // Hide modebar (menu options)
     showlegend: false,
+    hovermode: false,
     // margin: { t: 20},
     margin: {
       l: l_margin * width,
@@ -321,6 +330,8 @@ function makePlot(m1, // se1,
       ticks: "outside", // Show tick marks outside the axis
       range: [2004 - buffer, 2024 + buffer],
       automargin: true,
+      tickvals: [2004, 2008, 2012, 2016, 2020, 2024],
+      ticktext: ["2004", "2008", "2012", "2016", "2020", "2024"],
       // zeroline: true,
       // range: [years[0] - 0.25, years[years.length - 1] + 0.25],
 
@@ -386,17 +397,6 @@ function makePlot(m1, // se1,
   Plotly.newPlot(do_div, layout_data, layout, config);
   // return new Promise(resolve => setTimeout(resolve, ms));
 }
-
-// function delay(ms) {
-//   return new Promise(resolve => setTimeout(resolve, ms));
-// }
-//
-// async function makePlotSleep(m1, se1, m0, years, title,
-//                              red, green, blue, do_div) {
-//   makePlot(1, se1, m0, years, title,
-//     red, green, blue, do_div);
-//   await delay(100);
-// }
 
 function get_min_max_m0_m1(m1, m1_low, m1_high, m0) {
   var min_val;
@@ -470,7 +470,6 @@ function processWordData(data, signal) {
     if (index > data.temporal.years.length - 1) return;
     const tStart = performance.now();
     const chartDiv00 = document.getElementById("chart00");
-    const chartDiv01 = document.getElementById("chart01");
     const chartDiv02 = document.getElementById("chart02");
     const chartDiv03 = document.getElementById("chart03");
 
@@ -503,17 +502,10 @@ function processWordData(data, signal) {
       true, false,
       chartDiv00, false, index);
 
-    // makePlotIndex(data.temporal.usage.rank,
-    //   data.temporal.usage.rank_low, data.temporal.usage.rank_high, null,
-    //   data.temporal.years,
-    //   "Usage (percentile)",
-    //   237, 12, 24, prop / 4,
-    //   true, true,
-    //   chartDiv01, true, index);
 
     const chartDiv10 = document.getElementById("chart10");
-    makePlotIndex(data.temporal.SNIP.rank,
-      data.temporal.SNIP.rank_low, data.temporal.SNIP.rank_high,
+    makePlotIndex(data.temporal.SNIP_z.rank,
+      data.temporal.SNIP_z.rank_low, data.temporal.SNIP_z.rank_high,
       null,
       // data.temporal.SNIP.se1,
       // data.temporal.SNIP.m0,
@@ -555,19 +547,50 @@ function processWordData(data, signal) {
         return;
       }
       setTimeout(() => {
-        loop(index, prop + 0.1);
+        loop(index, prop + 0.2);
       }, 50 - timeDiff);
     }
 
     setTimeout(() => {
-      loop(index + 1, prop);
+      loop(index + 2, prop);
     }, 50 - timeDiff);
   }
 
   document.getElementById("sentence0").innerHTML = data.statement0;
   document.getElementById("sentence1").innerHTML = data.statement1;
 
+  statement2_text = "The shaded intervals represent ± 1 standard error. The result at each year represents pooling across ± 2 years (e.g., the year 2014 point and shaded area is based on data from 2012-2016). These intervals may get wonky at low usage levels. Most words yielding the lowest rates of fragile p-values seem to be from big correlational studies.\n" +
+    "\n" +
+    "Lastly and again, fragile p-values strongly predict replicability: Among papers where under 32% of significant p-values are fragile, the rate of successful replication was 59.5%, whereas for papers over this percentage, the replication rate was just 33.8% (see <a href=\"../assets/pdf/Bogdan_2025_PsyChange_Manuscript_SuppMat.pdf\">Supplemental Materials 7.3 of the mentioned paper</a>).\n";
+  document.getElementById("sentence2").innerHTML = statement2_text;
+
+
   loop(0, 0);
+}
+
+function clearEverything() {
+  const chartDiv00 = document.getElementById("chart00");
+  const chartDiv02 = document.getElementById("chart02");
+  const chartDiv03 = document.getElementById("chart03");
+  const chartDiv10 = document.getElementById("chart10");
+  const chartDiv11 = document.getElementById("chart11");
+  const chartDiv12 = document.getElementById("chart12");
+
+  // clear
+  chartDiv00.innerHTML = "";
+  chartDiv02.innerHTML = "";
+  chartDiv03.innerHTML = "";
+  chartDiv10.innerHTML = "";
+  chartDiv11.innerHTML = "";
+  chartDiv12.innerHTML = "";
+  document.getElementById("sentence1").innerHTML = "";
+  document.getElementById("sentence2").innerHTML = "";
+
+}
+
+function getSliderState() {
+  const toggle_ps = document.getElementById("neuroPsychToggle_ps");
+  return toggle_ps.checked; // Returns true for "Psych", false for "Neuro"
 }
 
 let abortController = null;
@@ -583,7 +606,12 @@ searchButton.addEventListener("click", () => {
   const signal = abortController.signal;
 
   const word = wordInput.value.trim().toLowerCase();
-  const apiUrl = `../assets/word_data/${word}.json`;
+  var apiUrl;
+  if (getSliderState()) {
+    apiUrl = `../assets/word_data/${word}.json`;
+  } else {
+    apiUrl = `../assets/neuro_word_data/${word}.json`;
+  }
 
   fetch(apiUrl, { signal })
     .then(response => {
@@ -597,6 +625,7 @@ searchButton.addEventListener("click", () => {
     })
     .catch(error => {
       document.getElementById("sentence0").innerHTML = `<p>No data found for "${word}".</p>`;
+      clearEverything();
       console.error(error);
     });
 });
@@ -618,7 +647,14 @@ randomButton.addEventListener("click", () => {
       const randomFile = files[Math.floor(Math.random() * files.length)];
       console.log(randomFile);
       const word = randomFile.split(".")[0];
-      const apiUrl = `../assets/word_data/${word}.json`;
+      var apiUrl;
+      if (getSliderState()) {
+        apiUrl = `../assets/word_data/${word}.json`;
+      } else {
+        apiUrl = `../assets/neuro_word_data/${word}.json`;
+      }
+
+      // const apiUrl = `../assets/word_data/${word}.json`;
       wordInput.value = word;
 
       fetch(apiUrl)
@@ -633,27 +669,15 @@ randomButton.addEventListener("click", () => {
         })
         .catch(error => {
           document.getElementById("sentence0").innerHTML = `<p>No data found for "${word}".</p>`;
+          clearEverything()
           console.error(error);
         });
 
     })
-    .catch(error => console.error("Error:", error));
-
+    .catch(error => {
+      document.getElementById("sentence0").innerHTML = `<p>No data found for "${word}".</p>`;
+      clearEverything()
+      console.error(error);
+    });
 });
 
-
-// const word = wordInput.value.trim().toLowerCase();
-// const apiUrl = `../assets/word_data/${word}.json`;
-//
-// fetch(apiUrl)
-//   .then(response => {
-//     if (!response.ok) {
-//       throw new Error(`Word not found: ${word}`);
-//     }
-//     return response.json();
-//   })
-//   .then(data => {
-//     processWordData(data);
-//   })
-//   .catch(error => {
-//     document.getElementById("sentence0").innerHTML = `<p>No data found for "${word}".</p>`;
