@@ -181,6 +181,10 @@ function makePlot(m1, // se1,
   var tickvals = null;
   var ticktext = null;
 
+  if (y_min_ < 0) {
+    y_min_ = 0;
+  }
+
   if (is_rank_flex) {
     y_min_ = y_min - 0.001 * high_low_dif;
     y_max_ = y_max + 0.001 * high_low_dif;
@@ -450,6 +454,7 @@ function makePlotIndex(m1, // se1,
     [y_max, y_min] = get_min_max_m0_m1(m1, m1_low, m1_high, m0);
   }
 
+
   makePlot(m1_, // se1_,
     m1_low_, m1_high_,
     m0_, years_, title_,
@@ -468,10 +473,8 @@ function processWordData(data, signal) {
     }
 
     if (index > data.temporal.years.length - 1) return;
+
     const tStart = performance.now();
-    const chartDiv00 = document.getElementById("chart00");
-    const chartDiv02 = document.getElementById("chart02");
-    const chartDiv03 = document.getElementById("chart03");
 
     makePlotIndex(data.temporal.p_fragile.m1,
       data.temporal.p_fragile.m1_low, data.temporal.p_fragile.m1_high,
@@ -503,7 +506,6 @@ function processWordData(data, signal) {
       chartDiv00, false, index);
 
 
-    const chartDiv10 = document.getElementById("chart10");
     makePlotIndex(data.temporal.SNIP_z.rank,
       data.temporal.SNIP_z.rank_low, data.temporal.SNIP_z.rank_high,
       null,
@@ -515,7 +517,6 @@ function processWordData(data, signal) {
       true, true,
       chartDiv10, false, index);
 
-    const chartDiv11 = document.getElementById("chart11");
     makePlotIndex(data.temporal.log_cites_rel_journal_z.rank,
       data.temporal.log_cites_rel_journal_z.rank_low,
       data.temporal.log_cites_rel_journal_z.rank_high,
@@ -528,7 +529,6 @@ function processWordData(data, signal) {
       true, true,
       chartDiv11, false, index);
 
-    const chartDiv12 = document.getElementById("chart12");
     makePlotIndex(data.temporal.target_score_z.rank,
       data.temporal.target_score_z.rank_low, data.temporal.target_score_z.rank_high,
       null,
@@ -556,8 +556,16 @@ function processWordData(data, signal) {
     }, 50 - timeDiff);
   }
 
+  const chartDiv00 = document.getElementById("chart00");
+  const chartDiv02 = document.getElementById("chart02");
+  const chartDiv03 = document.getElementById("chart03");
+  const chartDiv10 = document.getElementById("chart10");
+  const chartDiv11 = document.getElementById("chart11");
+  const chartDiv12 = document.getElementById("chart12");
+
   document.getElementById("sentence0").innerHTML = data.statement0;
   document.getElementById("sentence1").innerHTML = data.statement1;
+
 
   statement2_text = "The shaded intervals represent ± 1 standard error. The result at each year represents pooling across ± 2 years (e.g., the year 2014 point and shaded area is based on data from 2012-2016). These intervals may get wonky at low usage levels. Most words yielding the lowest rates of fragile p-values seem to be from big correlational studies.\n" +
     "\n" +
@@ -675,14 +683,14 @@ randomButton.addEventListener("click", () => {
         })
         .catch(error => {
           document.getElementById("sentence0").innerHTML = `<p>No data found for "${word}".</p>`;
-          clearEverything()
+          clearEverything();
           console.error(error);
         });
 
     })
     .catch(error => {
       document.getElementById("sentence0").innerHTML = `<p>No data found for "${word}".</p>`;
-      clearEverything()
+      clearEverything();
       console.error(error);
     });
 });

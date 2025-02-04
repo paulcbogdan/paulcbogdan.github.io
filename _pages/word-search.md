@@ -146,6 +146,11 @@ pagination:
         color: #333;
         line-height: 33px;
     }
+
+    .js-plotly-plot .plotly .cursor-crosshair {
+        cursor: default !important;
+    }
+        
 </style>
 
 
@@ -195,9 +200,9 @@ const randomButton = document.getElementById("random-button");
 <script src="../assets/js/word-search.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const toggle_ps = document.getElementById('neuroPsychToggle_ps');
-    const label_ps = document.getElementById('toggleLabel_ps');
+document.addEventListener("DOMContentLoaded", function() {
+    const toggle_ps = document.getElementById("neuroPsychToggle_ps");
+    const label_ps = document.getElementById("toggleLabel_ps");
 
     // Set default state to "Psych"
     toggle_ps.checked = true;
