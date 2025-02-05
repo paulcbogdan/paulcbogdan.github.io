@@ -42,6 +42,7 @@ pagination:
     }
 </style>
 
+
 <style>
     body2 {
         display: flex;
