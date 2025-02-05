@@ -170,7 +170,7 @@ button2:hover {
     }
     
     #toggleLabel_ps {
-        margin-left: 5px;
+        margin-left: 3px;
         font-size: 18px;
         color: #333;
         line-height: 33px;
