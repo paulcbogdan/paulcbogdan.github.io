@@ -226,7 +226,7 @@ function makePlot(m1, // se1,
     y_max_ = y_max_ + gap_dif / 2;
     y_min_ = y_min_ - gap_dif / 2;
 
-    var l_margin = 0.175;
+    var l_margin = 0.145;
 
     if (y_max_ > .9999) {
       y_max_ = .999999;

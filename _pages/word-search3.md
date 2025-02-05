@@ -255,17 +255,17 @@ if (themeSetting2 === "system") {
 </div>
 
 <div class="charts-container">
-  <div id="chart00" class="chart" style="width: 370px; height: 290px;"></div>
-  <div id="chart02" class="chart" style="width: 370px; height: 290px;"></div>
-  <div id="chart03" class="chart" style="width: 370px; height: 290px;"></div>
+  <div id="chart00" class="chart" style="width: 380px; height: 290px;"></div>
+  <div id="chart02" class="chart" style="width: 380px; height: 290px;"></div>
+  <div id="chart03" class="chart" style="width: 380px; height: 290px;"></div>
 </div>
 
 <div id="sentence1" class="description" style="font-size: 1.2rem;"></div>
 
 <div class="charts-container">
-  <div id="chart10" class="chart" style="width: 370px; height: 290px;"></div>
-  <div id="chart11" class="chart" style="width: 370px; height: 290px;"></div>
-  <div id="chart12" class="chart" style="width: 370px; height: 290px;"></div>
+  <div id="chart10" class="chart" style="width: 380px; height: 290px;"></div>
+  <div id="chart11" class="chart" style="width: 380px; height: 290px;"></div>
+  <div id="chart12" class="chart" style="width: 380px; height: 290px;"></div>
 </div>
 
 <div id='sentence2' class="description" style="font-size: 1.2rem;"></div>
