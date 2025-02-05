@@ -96,7 +96,7 @@ function showButton() {
   //
   // // // Set the button's text
   console.log("Show button");
-  newButton.innerText = " Share ";
+  newButton.innerText = "&nbsp;&nbsp;Share";
   // //
   // // // Optionally, add an event listener to the new button
   // // newButton.addEventListener("click", function() {
