@@ -602,7 +602,7 @@ function processWordData(data, signal) {
   document.getElementById("sentence1").innerHTML = data.statement1;
 
 
-  statement2_text = "The shaded intervals represent ± 1 standard error. The result at each year represents pooling across ± 2 years (e.g., the year 2014 point and shaded area is based on data from 2012-2016). These intervals may get wonky at low usage levels. Most words yielding the lowest rates of fragile p-values seem to be from big correlational studies.";
+  statement2_text = "The shaded intervals represent ± 1 standard error. The result at each year represents pooling across ± 2 years (e.g., the year 2014 point and shaded area is based on data from 2012-2016). These intervals may get wonky at low usage levels. Most words yielding the lowest rates of fragile p-values seem to be from big correlational studies. The word-percentile distributions may not always be intuitive (e.g., a word's papers' fragile p-value rate may be below the median paper while the word is still in the top 50th percentile of words).";
   document.getElementById("sentence2").innerHTML = statement2_text;
 
 
