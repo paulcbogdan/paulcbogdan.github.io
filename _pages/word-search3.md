@@ -194,7 +194,7 @@ button2:hover {
     flex-wrap: wrap;
     gap: 0rem;
     justify-content: center;
-    margin-bottom: 0.9rem;
+    margin-bottom: 0.8rem;
     margin-top: 1rem;
   }
 

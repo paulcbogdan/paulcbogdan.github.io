@@ -602,9 +602,7 @@ function processWordData(data, signal) {
   document.getElementById("sentence1").innerHTML = data.statement1;
 
 
-  statement2_text = "The shaded intervals represent ± 1 standard error. The result at each year represents pooling across ± 2 years (e.g., the year 2014 point and shaded area is based on data from 2012-2016). These intervals may get wonky at low usage levels. Most words yielding the lowest rates of fragile p-values seem to be from big correlational studies.\n" +
-    "\n" +
-    "Lastly and again, fragile p-values strongly predict replicability: Among papers where under 32% of significant p-values are fragile, the rate of successful replication was 59.5%, whereas for papers over this percentage, the replication rate was just 33.8% (see <a href=\"../assets/pdf/Bogdan_2025_PsyChange_Manuscript_SuppMat.pdf\">Supplemental Materials 7.3 of the mentioned paper</a>).\n";
+  statement2_text = "The shaded intervals represent ± 1 standard error. The result at each year represents pooling across ± 2 years (e.g., the year 2014 point and shaded area is based on data from 2012-2016). These intervals may get wonky at low usage levels. Most words yielding the lowest rates of fragile p-values seem to be from big correlational studies.";
   document.getElementById("sentence2").innerHTML = statement2_text;
 
 
