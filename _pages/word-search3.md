@@ -198,6 +198,14 @@ button2:hover {
     margin-top: 1rem;
   }
 
+.centered {
+  margin: 10px auto;
+  text-align: center;
+    display: flex;
+    justify-content: center; /* centers horizontally */
+    align-items: center; /* centers vertically */
+}
+
         
 </style>
 
@@ -207,10 +215,10 @@ let themeSetting2 = determineThemeSetting();
 var isDark;
 if (themeSetting2 === "system") {
   isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  document.documentElement.setAttribute('data-theme', 'system');
+  document.documentElement.setAttribute("data-theme", "system");
 } else {
   isDark = themeSetting2 === "dark";
-  document.documentElement.setAttribute('data-theme', themeSetting2);
+  document.documentElement.setAttribute("data-theme", themeSetting2);
 }
 </script>
 
@@ -236,7 +244,7 @@ if (themeSetting2 === "system") {
         </label>
         <span id="toggleLabel_ps" style="color:red;">Psych</span>
     </div>
-    <div id="buttonContainer" style="position: absolute; right: 0; top:5px">
+    <div id="buttonContainer"  style="position: absolute; right: 0; top:5px">
         <!-- The button will appear here -->
     </div>
 </div>
@@ -247,17 +255,17 @@ if (themeSetting2 === "system") {
 </div>
 
 <div class="charts-container">
-  <div id="chart00" class="chart" style="width: 380px; height: 300px;"></div>
-  <div id="chart02" class="chart" style="width: 380px; height: 300px;"></div>
-  <div id="chart03" class="chart" style="width: 380px; height: 300px;"></div>
+  <div id="chart00" class="chart" style="width: 370px; height: 290px;"></div>
+  <div id="chart02" class="chart" style="width: 370px; height: 290px;"></div>
+  <div id="chart03" class="chart" style="width: 370px; height: 290px;"></div>
 </div>
 
 <div id="sentence1" class="description" style="font-size: 1.2rem;"></div>
 
 <div class="charts-container">
-  <div id="chart10" class="chart" style="width: 380px; height: 300px;"></div>
-  <div id="chart11" class="chart" style="width: 380px; height: 300px;"></div>
-  <div id="chart12" class="chart" style="width: 380px; height: 300px;"></div>
+  <div id="chart10" class="chart" style="width: 370px; height: 290px;"></div>
+  <div id="chart11" class="chart" style="width: 370px; height: 290px;"></div>
+  <div id="chart12" class="chart" style="width: 370px; height: 290px;"></div>
 </div>
 
 <div id='sentence2' class="description" style="font-size: 1.2rem;"></div>
@@ -268,7 +276,7 @@ const wordInput = document.getElementById("word-input");
 const searchButton = document.getElementById("search-button");
 const randomButton = document.getElementById("random-button");
 const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-console.log('Is dark:', isDarkMode);
+console.log("Is dark:", isDarkMode);
 let themeSetting = determineThemeSetting();
 console.log(themeSetting);
 </script>
@@ -294,11 +302,31 @@ function watchThemeSetting() {
     setInterval(() => {
         let newTheme = determineThemeSettingMulti();
         if (newTheme !== currentTheme) {
-            document.getElementById('search-button').click();
+            document.getElementById("search-button").click();
             currentTheme = newTheme;
         }
     }, 100); // Checks every second
 }
 
 watchThemeSetting();
+</script>
+
+<script>
+function isMobileDevice() {
+    const is_small = window.innerWidth <= 768;
+    const is_mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (is_small || is_mobile) {
+        return true;
+    } else {
+        return false;
+    }
+}
+const buttonContainer2 = document.getElementById("buttonContainer");
+if (isMobileDevice()) {
+    buttonContainer2.style.display = "none";
+    buttonContainer2.setAttribute("style", "");
+    // buttonContainer2.style.display = "block";
+    buttonContainer2.classList.add('centered');
+
+}
 </script>
