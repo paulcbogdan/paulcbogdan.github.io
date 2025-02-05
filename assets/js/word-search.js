@@ -570,7 +570,7 @@ function processWordData(data, signal) {
       // data.temporal.SNIP.se1,
       // data.temporal.SNIP.m0,
       data.temporal.target_score_z.years,
-      "University ranking (percentile)",
+      "School rank (percentile)",
       170, 117, 250, prop / 4,
       true, true,
       chartDiv12, false, index);
