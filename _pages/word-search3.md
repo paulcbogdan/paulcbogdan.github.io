@@ -1,7 +1,7 @@
 ---
 layout: default
-permalink: /meganal3/
-title: Meganalysis3
+permalink: /meganal/
+title: Meganalysis
 description: test test
 nav: true
 nav_order: 5
