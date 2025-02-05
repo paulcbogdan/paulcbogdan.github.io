@@ -141,7 +141,7 @@ function makePlot(m1, // se1,
   }
 
   const marker0_color = isDark ? "white" : "black";
-  const marker0_line_color = isDark ? "#cacaca" : "#3c3c3c";
+  const marker0_line_color = isDark ? "#cacaca" : "#515151";
   var trace_p_fragile_m0 = null;
   var y_annot_spot;
 
