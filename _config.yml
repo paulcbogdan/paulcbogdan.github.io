@@ -71,15 +71,15 @@ og_image: # The site-wide (default for all links) Open Graph preview image
 
 acm_id: # your dl.acm.org/profile/id
 blogger_url: # your blogger URL
-bluesky_url: # your bluesky URL
+bluesky_url: pbogdan.bsky.social # your bluesky URL
 dblp_url: # your DBLP profile url
 discord_id: # your discord id (18-digit unique numerical identifier)
 facebook_id: # your facebook id
 flickr_id: # your flickr id
-github_username: # your GitHub user name
+github_username: paulcbogdan # your GitHub user name
 gitlab_username: # your GitLab user name
 ieee_id: # your ieeexplore.ieee.org/author/id
-inspirehep_id: 1010907 # Inspire HEP author ID
+inspirehep_id: # Inspire HEP author ID
 instagram_id: # your instagram id
 kaggle_id: # your kaggle id
 keybase_username: # your keybase user name
@@ -94,7 +94,7 @@ pinterest_id: # your pinterest id
 publons_id: # your ID on Publons
 quora_username: # your Quora username
 research_gate_profile: # your profile on ResearchGate
-scholar_userid: qc6CJjYAAAAJ # your Google Scholar ID
+scholar_userid: qQXx9W8AAAAJ # your Google Scholar ID
 scopus_id: # your profile on Scopus
 semanticscholar_id: # your Semantic Scholar ID
 spotify_id: # your spotify id
@@ -106,12 +106,12 @@ whatsapp_number: # your WhatsApp number (full phone number in international form
 wikidata_id: # your wikidata id
 wikipedia_id: # your wikipedia id (Case sensitive)
 work_url: # work page URL
-x_username: # your X handle
+x_username: paulcbogdan # your X handle
 youtube_id: # your youtube channel id (youtube.com/@<youtube_id>)
 zotero_username: # your zotero username
 
 contact_note: >
-  You can even add a little note about which of these is the best way to reach you.
+  Feel free to contact me about anything. Email preferred
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
@@ -431,7 +431,7 @@ enable_masonry: true # enables automatic project cards arrangement
 enable_math: true # enables math typesetting (uses MathJax)
 enable_tooltips: false # enables automatic tooltip links generated for each section titles on pages and posts
 enable_darkmode: true # enables switching between light/dark modes
-enable_navbar_social: false # enables displaying social links in the navbar on the about page
+enable_navbar_social: true # enables displaying social links in the navbar on the about page
 enable_project_categories: true # enables categorization of projects into multiple categories
 enable_medium_zoom: true # enables image zoom feature (as on medium.com)
 enable_progressbar: false # enables a horizontal progress bar linked to the vertical scroll position
