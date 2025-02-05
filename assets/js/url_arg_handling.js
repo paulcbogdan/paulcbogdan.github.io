@@ -96,7 +96,7 @@ function showButton() {
   //
   // // // Set the button's text
   console.log("Show button");
-  newButton.innerText = "&nbsp;&nbsp;Share";
+  newButton.innerText = "Share";
   // //
   // // // Optionally, add an event listener to the new button
   // // newButton.addEventListener("click", function() {
@@ -127,10 +127,10 @@ function showButton() {
     navigator.clipboard.writeText(textToCopy)
       .then(() => {
         // Temporarily change the button text to "Copied!"
-        newButton.innerText = "Copied!";
+        newButton.innerText = "Copied";
         setTimeout(() => {
           newButton.innerText = "Share";
-        }, 2000); // Reset the text after 2 seconds
+        }, 1250); // Reset the text after 2 seconds
       })
       .catch((err) => {
         console.error("Failed to copy text: ", err);

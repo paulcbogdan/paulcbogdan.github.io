@@ -76,7 +76,7 @@ pagination:
 button2 {
     background: var(--button-bg, black);
     color: var(--button-text, white);
-    padding: 5px 10px;
+    padding: 4px 6px;
     font-size: 16px;
     margin: 5px;
     cursor: pointer;
@@ -127,7 +127,7 @@ button2:hover {
         display: inline-block;
         width: 50px;
         height: 24px;
-        padding: 5px 10px;
+        padding: 5px 8px;
         margin-top: 8px;
     }
     
@@ -170,8 +170,8 @@ button2:hover {
     }
     
     #toggleLabel_ps {
-        margin-left: 3px;
-        font-size: 18px;
+        margin-left: 2px;
+        font-size: 16px;
         color: #333;
         line-height: 33px;
     }
