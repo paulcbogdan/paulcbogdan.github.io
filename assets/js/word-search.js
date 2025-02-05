@@ -63,6 +63,20 @@ function makePlot(m1, // se1,
                   y_max, y_min, is_percent,
                   is_rank, is_rank_flex,
                   do_div) {
+
+  let themeSetting = determineThemeSetting();
+  var isDark;
+  if (themeSetting === "system") {
+    isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  } else if (themeSetting === "dark") {
+    isDark = true;
+  } else {
+    isDark = false;
+  }
+
+  const axisColor = isDark ? "#ffffff" : "#2a2424"; // White in dark mode, black in light mode
+  const gridColor = isDark ? "#2a2424" : "#ededed"; // Black in dark mode, white in light mode
+
   const trace_m1 = {
     x: years, y: m1,
     type: "scatter",
@@ -126,7 +140,11 @@ function makePlot(m1, // se1,
     };
   }
 
+  const marker0_color = isDark ? "white" : "black";
+  const marker0_line_color = isDark ? "#cacaca" : "#3c3c3c";
   var trace_p_fragile_m0 = null;
+  var y_annot_spot;
+
   if (m0 !== null) {
     trace_p_fragile_m0 = {
       x: years,
@@ -141,15 +159,17 @@ function makePlot(m1, // se1,
         size: 7,
         symbol: "circle", // You can change the symbol here,
         shape: "spline",
+        color: marker0_color,
       },
       line: {
-        color: "#2a2424",
+        color: marker0_line_color,
         width: 5,
       },
       hoverinfo: "none",
 
     };
   }
+
 
   var trace_power_line = null;
   if (title.includes("p-value rate")) {
@@ -167,6 +187,12 @@ function makePlot(m1, // se1,
       },
       hoverinfo: "none",
     };
+
+    // max m1 or m0
+    high = Math.max(...m1, ...m0);
+    const gap = high - 0.26;
+
+    y_annot_spot = 0.26 + gap * .1;
   }
 
   const width = do_div.clientWidth;
@@ -256,10 +282,6 @@ function makePlot(m1, // se1,
     yformat = ",.0";
   }
 
-  var y_annot_spot = 0.26 + (y_max_ - .258) * .08;
-  if (y_annot_spot < .267) {
-    y_annot_spot = .275;
-  }
 
   var trace_power_line = null;
   var annotation = null;
@@ -272,7 +294,7 @@ function makePlot(m1, // se1,
       yaxis: "y_pf",
       mode: "lines",
       line: {
-        color: "#2a2424",
+        color: axisColor,
         width: 2,
         dash: "dash",
       },
@@ -285,11 +307,15 @@ function makePlot(m1, // se1,
       // text: "(expected if<br>    80% power)",
       text: "(rate at 80% power)",
       showarrow: false,
-      font: { size: 16 },
+      font: {
+        size: 16,
+        color: axisColor,
+      },
       xanchor: "left",
+      color: axisColor,
     };
 
-    if (y_min_ > 0.26) {
+    if (y_min_ > 0.25) {
       y_min_ = 0.255;
     }
   }
@@ -297,7 +323,7 @@ function makePlot(m1, // se1,
     y_min_ = 0;
   }
 
-
+  console.log("axis:", axisColor);
   const layout = {
 
     title: {
@@ -324,18 +350,23 @@ function makePlot(m1, // se1,
       b: 0.1 * height,
     }, // Remove margins
     autosize: true, // Automatically resize the plot to fit the container
+    paper_bgcolor: "rgba(0,0,0,0)", // Transparent background
+    plot_bgcolor: "rgba(0,0,0,0)", // Transparent plot area
     xaxis: {
       // domain: [0, 0.33],
       showgrid: true,
       showline: true,
-      linecolor: "#2a2424",
       linewidth: 2,
       tickwidth: 2,
       ticks: "outside", // Show tick marks outside the axis
-      range: [2004 - buffer, 2024 + buffer],
+      range: [2004, 2024],
       automargin: true,
       tickvals: [2004, 2008, 2012, 2016, 2020, 2024],
       ticktext: ["2004", "2008", "2012", "2016", "2020", "2024"],
+      linecolor: axisColor,
+      tickfont: { color: axisColor },
+      tickcolor: axisColor,
+      gridcolor: gridColor,
       // zeroline: true,
       // range: [years[0] - 0.25, years[years.length - 1] + 0.25],
 
@@ -345,7 +376,6 @@ function makePlot(m1, // se1,
       tickformat: yformat,
       showgrid: true,
       showline: true,
-      linecolor: "#2a2424",
       linewidth: 2,
       tickwidth: 2,
       ticks: "outside", // Show tick marks outside the axis
@@ -353,6 +383,11 @@ function makePlot(m1, // se1,
       tickvals: tickvals,
       ticktext: ticktext,
       automargin: true,
+      linecolor: axisColor,
+      tickfont: { color: axisColor },
+      tickcolor: axisColor,
+      gridcolor: gridColor,
+
       // zeroline: true,
     },
 
@@ -360,7 +395,7 @@ function makePlot(m1, // se1,
       family: "Font Awesome 6 Brands", // Set the font family
       // size: 16, // Set the default font size
       size: title.includes("<br>") ? 14 : 16,
-      color: "#2a2424", // Set the default font color
+      // color: "#2a2424", // Set the default font color
     },
   };
   // layout.annotations = [{

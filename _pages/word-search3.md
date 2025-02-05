@@ -73,24 +73,47 @@ pagination:
 
 
 
-    button2 {
-        background: black;
-        color: white;
-        padding: 5px 10px;
-        font-size: 16px;
-        margin: 5px;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: 0.3s;
-        border: 2px solid black;
-        box-sizing: border-box;
-    }
+button2 {
+    background: var(--button-bg, black);
+    color: var(--button-text, white);
+    padding: 5px 10px;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    border: 2px solid var(--button-bg, black);
+    box-sizing: border-box;
+}
 
-    button2:hover {
-        background: white;
-        color: black;
-        border: 2px solid black;
+button2:hover {
+    background: var(--button-hover-bg, white);
+    color: var(--button-hover-text, black);
+    border: 2px solid var(--button-bg, black);
+}
+
+:root {
+    --button-bg: black;
+    --button-text: white;
+    --button-hover-bg: white;
+    --button-hover-text: black;
+}
+
+[data-theme="dark"] {
+    --button-bg: white;
+    --button-text: black;
+    --button-hover-bg: black;
+    --button-hover-text: white;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root[data-theme="system"] {
+        --button-bg: white;
+        --button-text: black;
+        --button-hover-bg: black;
+        --button-hover-text: white;
     }
+}
 
 
 
@@ -171,12 +194,27 @@ pagination:
     flex-wrap: wrap;
     gap: 0rem;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.9rem;
     margin-top: 1rem;
   }
 
         
 </style>
+
+
+<script>
+let themeSetting2 = determineThemeSetting();
+var isDark;
+if (themeSetting2 === "system") {
+  isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  document.documentElement.setAttribute('data-theme', 'system');
+} else {
+  isDark = themeSetting2 === "dark";
+  document.documentElement.setAttribute('data-theme', themeSetting2);
+}
+</script>
+
+
 
 <div class="container">
 <div class="header">
@@ -229,6 +267,10 @@ pagination:
 const wordInput = document.getElementById("word-input");
 const searchButton = document.getElementById("search-button");
 const randomButton = document.getElementById("random-button");
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+console.log('Is dark:', isDarkMode);
+let themeSetting = determineThemeSetting();
+console.log(themeSetting);
 </script>
 
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -236,3 +278,27 @@ const randomButton = document.getElementById("random-button");
 <script src="../assets/js/word-search.js"></script>
 <script src="../assets/js/url_arg_handling.js"></script>
 
+<script>
+function determineThemeSettingMulti() {
+    let themeSetting = determineThemeSetting();
+    if (themeSetting === "system") {
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } else {
+        return themeSetting;
+    }
+}
+
+function watchThemeSetting() {
+    let currentTheme = determineThemeSettingMulti();
+    
+    setInterval(() => {
+        let newTheme = determineThemeSettingMulti();
+        if (newTheme !== currentTheme) {
+            document.getElementById('search-button').click();
+            currentTheme = newTheme;
+        }
+    }, 100); // Checks every second
+}
+
+watchThemeSetting();
+</script>
