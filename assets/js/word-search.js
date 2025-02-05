@@ -89,7 +89,7 @@ function makePlot(m1, // se1,
       symbol: "circle", // You can change the symbol here
     },
     line: {
-      color: `rgba(${red}, ${green}, ${blue}, 0.95)`,
+      color: `rgba(${red - 15}, ${green - 15}, ${blue - 15}, 0.95)`,
       width: 5,
       shape: "spline",
     },
