@@ -2,7 +2,7 @@
 layout: default
 permalink: /meganal/
 title: Meganalysis
-description: test test
+description: The MOAMA
 nav: true
 nav_order: 5
 pagination:
