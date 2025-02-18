@@ -107,14 +107,14 @@
                 "2014": 0.0,
                 "2015": 0.0,
                 "2016": 0.0,
-                "2017": 0.0010131712259371835,
-                "2018": 0.002364066193853428,
-                "2019": 0.0028143645164921765,
-                "2020": 0.002626740215392698,
-                "2021": 0.0018887512977347493,
-                "2022": 0.0009673075078906442,
-                "2023": 0.00032243583596354804,
-                "2024": 0.00016121791798177402
+                "2017": 0.0013333333333333333,
+                "2018": 0.003111111111111111,
+                "2019": 0.003703703703703704,
+                "2020": 0.0035679012345679016,
+                "2021": 0.003189300411522634,
+                "2022": 0.003063100137174211,
+                "2023": 0.0020210333790580703,
+                "2024": 0.0010105166895290351
             },
             "rank_low": {
                 "2004": 0.0,
@@ -130,14 +130,14 @@
                 "2014": 0.0,
                 "2015": 0.0,
                 "2016": 0.0,
-                "2017": 0.0,
-                "2018": 0.0010131712259371835,
-                "2019": 0.002026342451874367,
-                "2020": 0.0016886187098953058,
-                "2021": 0.0009005966452774964,
-                "2022": 0.00030019888175916547,
-                "2023": 0.00010006629391972183,
-                "2024": 5.0033146959860913e-05
+                "2017": 0.0006666666666666666,
+                "2018": 0.0022222222222222222,
+                "2019": 0.003074074074074074,
+                "2020": 0.0030246913580246914,
+                "2021": 0.003008230452674897,
+                "2022": 0.0030027434842249657,
+                "2023": 0.002000914494741655,
+                "2024": 0.0010004572473708276
             },
             "rank_high": {
                 "2004": 0.0,
@@ -153,14 +153,14 @@
                 "2014": 0.0,
                 "2015": 0.0,
                 "2016": 0.0,
-                "2017": 0.0010131712259371835,
-                "2018": 0.002364066193853428,
-                "2019": 0.0028143645164921765,
-                "2020": 0.00330218769935082,
-                "2021": 0.0034647954269703685,
-                "2022": 0.0031812742608644897,
-                "2023": 0.00207359597955868,
-                "2024": 0.00103679798977934
+                "2017": 0.0016666666666666668,
+                "2018": 0.003888888888888889,
+                "2019": 0.004629629629629629,
+                "2020": 0.00454320987654321,
+                "2021": 0.00451440329218107,
+                "2022": 0.004171467764060357,
+                "2023": 0.002390489254686786,
+                "2024": 0.001195244627343393
             }
         },
         "years": [
@@ -266,28 +266,28 @@
                 3.4156540699870592
             ],
             "rank": [
-                0.004559270516717326,
-                0.0059101654846335705,
-                0.010075424969041992,
-                0.018556043378738413,
-                0.038291709535457706,
-                0.052614414605457044
+                0.0015030060120240479,
+                0.0015030060120240479,
+                0.0018370073480293919,
+                0.0016146747970475666,
+                0.0045502610406741644,
+                0.007791680169283922
             ],
             "rank_low": [
-                0.0010131712259371835,
-                0.00033772374197906115,
-                0.00011257458065968705,
-                3.7524860219895683e-05,
-                0.0003505745477271187,
-                0.0006823866653442895
+                0.001002004008016032,
+                0.000334001336005344,
+                0.000111333778668448,
+                3.711125955614933e-05,
+                1.2370419852049777e-05,
+                6.185209926024889e-06
             ],
             "rank_high": [
-                0.3166160081053698,
-                0.5273556231003039,
-                0.7134414049307667,
-                0.8534841832714172,
-                0.9150085131196577,
-                0.9331634857687539
+                0.22394789579158317,
+                0.4139946559786239,
+                0.6072700957470497,
+                0.7651724005982171,
+                0.8431550930780416,
+                0.8684180681037148
             ],
             "years": [
                 2018,
@@ -300,52 +300,52 @@
         },
         "p_fragile": {
             "m0": [
-                0.36118755281345416,
-                0.3599508914381114,
-                0.35830641034567884,
-                0.3575324857208383
+                0.3679121782657803,
+                0.36682572700069516,
+                0.3656692183273029,
+                0.3650543396236141
             ],
             "m1": [
-                0.5,
-                0.5,
-                0.5,
-                0.5
+                0.12905128205128202,
+                0.12905128205128202,
+                0.12905128205128202,
+                0.12905128205128202
             ],
             "se1": {
-                "2019": 0.25,
-                "2020": 0.25,
-                "2021": 0.25,
-                "2022": 0.25
+                "2019": 0.09425202533674751,
+                "2020": 0.09425202533674751,
+                "2021": 0.09425202533674751,
+                "2022": 0.09425202533674751
             },
             "m1_low": [
-                0.25,
-                0.25,
-                0.25,
-                0.25
+                0.034799256714534516,
+                0.034799256714534516,
+                0.034799256714534516,
+                0.034799256714534516
             ],
             "m1_high": [
-                0.75,
-                0.75,
-                0.75,
-                0.75
+                0.22330330738802953,
+                0.22330330738802953,
+                0.22330330738802953,
+                0.22330330738802953
             ],
             "rank": [
-                0.9979679955428996,
-                0.9986461894445141,
-                0.9981974923279138,
-                0.9975789893250511
+                0.0,
+                0.0,
+                0.0,
+                0.0
             ],
             "rank_low": [
-                0.0040619454417894435,
-                0.0054128362326446135,
-                0.0065344662459702815,
-                0.007319918026733875
+                0.0,
+                0.0,
+                0.0,
+                0.0
             ],
             "rank_high": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
+                0.0,
+                0.0,
+                0.00033433634236041456,
+                0.0006686726847208291
             ],
             "years": [
                 2019,
@@ -464,8 +464,8 @@
             "rank": [
                 0.0,
                 0.0,
-                0.00033772374197906115,
-                0.0006754474839581223
+                0.00033433634236041456,
+                0.0006686726847208291
             ],
             "rank_low": [
                 0.0,
@@ -474,10 +474,10 @@
                 0.0
             ],
             "rank_high": [
-                0.021839276133878087,
-                0.021485405962316333,
-                0.0220291820526955,
-                0.022159474511656764
+                0.02508882067890418,
+                0.023742411974880463,
+                0.02295927273117881,
+                0.022512735663483087
             ],
             "years": [
                 2019,
@@ -650,22 +650,22 @@
                 0.4663979116956512
             ],
             "rank": [
-                0.019297078123065494,
-                0.021653235051774744,
-                0.025462362502305585,
-                0.028941920866147726
+                0.004013546664088652,
+                0.0033438669421920384,
+                0.0017832949987848419,
+                0.0013931520129330428
             ],
             "rank_low": [
-                0.0005081300813008131,
-                0.0001693766937669377,
-                0.0007319063818804349,
-                0.0013791244168774009
+                0.0,
+                0.0,
+                0.0,
+                0.0
             ],
             "rank_high": [
-                0.992380628121002,
-                0.9947539632133794,
-                0.9965616748042069,
-                0.9972676661761662
+                1.0,
+                1.0,
+                1.0,
+                1.0
             ],
             "years": [
                 2019,
@@ -676,10 +676,10 @@
         },
         "p_fragile_if_stat": {
             "m0": [
-                0.36118755281345416,
-                0.3599508914381114,
-                0.35830641034567884,
-                0.3575324857208383
+                0.36191976262895564,
+                0.3604553429979526,
+                0.3582097785029274,
+                0.3567585610959977
             ],
             "m1": [
                 0.5,
@@ -705,24 +705,6 @@
                 0.75,
                 0.75
             ],
-            "rank": [
-                0.9979679955428996,
-                0.9986461894445141,
-                0.9981974923279138,
-                0.9975789893250511
-            ],
-            "rank_low": [
-                0.0040619454417894435,
-                0.0054128362326446135,
-                0.0065344662459702815,
-                0.007319918026733875
-            ],
-            "rank_high": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ],
             "years": [
                 2019,
                 2020,
@@ -731,6 +713,6 @@
             ]
         }
     },
-    "statement0": "<p style=\"margin-bottom: 12px;\">The word <span  \"><i>\"requesting\" </i></span> is mentioned two or more times in <span style=\"color: rgba(255, 89, 98, 1.0); font-weight: bold;\">0.0%</span> of neuroscience papers' Results sections, as of 2020-2024. </p>Among 2020-2024 papers containing <span  \"><i>\"requesting\" </i></span>, <span style=\"color: rgba(94, 184, 242, 1.0); font-weight: bold;\">50.0%</span> of reported significant p-values (p < .05) are fragile (.01 \u2264 p < .05) - i.e., barely fall under the standard significance threshold. This is a higher than the typical Psychology paper (median shown for reference); relative to other words, papers with <span  \"><i>\"requesting\" </i></span> are in the top <span style=\"color: rgba(3, 152, 252, 1.0); font-weight: bold;\">100<sup>th</sup></span> percentile of fragile p-value percentages (lower = better). Note, strong/weak p-values highly predict replicability. Among papers where under 32% of significant p-values are fragile, the rate of successful replication was found to be 59.5%, whereas for papers over the replication rate was just 33.8% (see <a href=\"../assets/pdf/Bogdan_2025_PsyChange_Manuscript_SuppMat.pdf\">Supplemental Materials 7.3 of the mentioned paper</a>).",
-    "statement1": "As of 2020-2024, papers containing <span  \"><i>\"requesting\" </i></span> tend to be published in lower impact factor journals (<span style=\"color: rgba(105, 219, 99, 1.0); font-weight: bold;\">0<sup>th</sup></span> percentile among all words)  and tend to be cited less (<span style=\"color: rgba(255, 168, 82, 1.0); font-weight: bold;\">3<sup>rd</sup></span> percentile word). In general, this word is positively associated with university ranking, such that higher-ranked institutions are more likely to publish papers containing <span  \"><i>\"requesting\" </i></span> (<span style=\"color: rgba(170, 117, 250, 1.0); font-weight: bold;\">100<sup>th</sup></span> percentile). "
+    "statement0": "<p style=\"margin-bottom: 12px;\">The word <span  \"><i>\"requesting\" </i></span> is mentioned two or more times in <span style=\"color: rgba(255, 89, 98, 1.0); font-weight: bold;\">0.0%</span> of neuroscience papers' Results sections, as of 2020-2024. </p>Among 2020-2024 papers containing <span  \"><i>\"requesting\" </i></span>, <span style=\"color: rgba(94, 184, 242, 1.0); font-weight: bold;\">12.9%</span> of reported significant p-values (p < .05) are fragile (.01 \u2264 p < .05) - i.e., barely fall under the standard significance threshold. This is a lower than the typical Psychology paper (median shown for reference); relative to other words, papers with <span  \"><i>\"requesting\" </i></span> are in the bottom <span style=\"color: rgba(3, 152, 252, 1.0); font-weight: bold;\">0<sup>th</sup></span> percentile of fragile p-value percentages (lower = better). Note, strong/weak p-values highly predict replicability. Among papers where under 32% of significant p-values are fragile, the rate of successful replication was found to be 59.5%, whereas for papers over the replication rate was just 33.8% (see <a href=\"../assets/pdf/Bogdan_2025_PsyChange_Manuscript_SuppMat.pdf\">Supplemental Materials 7.3 of the mentioned paper</a>).",
+    "statement1": "As of 2020-2024, papers containing <span  \"><i>\"requesting\" </i></span> tend to be published in lower impact factor journals (<span style=\"color: rgba(105, 219, 99, 1.0); font-weight: bold;\">0<sup>th</sup></span> percentile among all words)  and tend to be cited less (<span style=\"color: rgba(255, 168, 82, 1.0); font-weight: bold;\">0<sup>th</sup></span> percentile word). In general, this word is positively associated with university ranking, such that higher-ranked institutions are more likely to publish papers containing <span  \"><i>\"requesting\" </i></span> (<span style=\"color: rgba(170, 117, 250, 1.0); font-weight: bold;\">100<sup>th</sup></span> percentile). "
 }
