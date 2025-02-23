@@ -250,8 +250,8 @@ if (themeSetting2 === "system") {
 </div>
 
 
-<div id="sentence0" style="font-size: 1.2rem;  align-items: center; justify-content: center;">
-  <br>Enter a word above and figures will appear that illustrate trends among the psych/neuro papers containing said word. For example, you can search for <a href="index.html?word=priming&psych_neuro=true">"priming"</a> and see how priming papers generally produced weak p-values yet this topic was ubiquitous among top journals and universities before the replication crisis began. However, since then, the field has moved away from priming research. You can alternatively search for <a href="index.html?word=genotype&psych_neuro=true">"genotype"</a> and find that genetic psychology (and its dubious p-values) peaked in prominence around 2012, although has declined since. By contrast, <a href="index.html?word=perception&psych_neuro=true">"perception"</a> research fairs better in terms of its p-values and is on the rise (echoed by searching for <a href="index.html?word=perceived&psych_neuro=true">"perceived"</a>). You can also look at words linked to methods, like <a href="index.html?word=priming&psych_neuro=true">"ANCOVA"</a>, which has consistently yielded questionable p-values but its usage has gone down over time. Feel free also to toggle the Psych/Neuro switch, and see how <a href="index.html?word=connectivity&psych_neuro=false">"connectivity"</a> and <a href="index.html?word=crispr&psych_neuro=false">"CRISPR"</a> studies are hot right now (the dataset covers cognitive, behavioral, and cellular neuroscience).<br><br>These statistics are based on a dataset of ~250k empirical psychology papers and ~150k empirical neuroscience papers published from 2004-2024. This webpage was prepared alongside the article <a href="../assets/pdf/Bogdan_2025_PsyChange_Manuscript_SuppMat.pdf">"One Decade Into the Replication Crisis, How Have Psychological Results Changed?"</a> (Bogdan, <i>in press</i>). <br><br>You can download the Psychology paper statistics dataset from the associated <a href="https://osf.io/mxs47/">OSF repository</a>. You can additionally find the code used to download the papers, organize the dataset, and perform the analysis in the associated <a href="https://github.com/paulcbogdan/PsychChange">GitHub repository</a>.
+<div id="sentence0" style="font-size: 1.1rem;  align-items: center; justify-content: center;">
+  <br>Enter a word above and figures will appear that illustrate trends among the psych/neuro papers containing said word. For example, you can search for <a href="index.html?word=priming&psych_neuro=true">"priming"</a> and see how priming papers generally produced weak p-values yet this topic was ubiquitous among top journals and universities before the replication crisis began. However, since then, the field has moved away from priming research. You can alternatively search for <a href="index.html?word=genotype&psych_neuro=true">"genotype"</a> and find that genetic psychology (and its dubious p-values) peaked in prominence around 2012, although has declined since. By contrast, <a href="index.html?word=perception&psych_neuro=true">"perception"</a> research fairs better in terms of its p-values and is on the rise (echoed by searching for <a href="index.html?word=perceived&psych_neuro=true">"perceived"</a>). You can also look at words linked to methods, like <a href="index.html?word=priming&psych_neuro=true">"ANCOVA"</a>, which has consistently yielded questionable p-values but its usage has gone down over time. Feel free also to toggle the Psych/Neuro switch, and see how <a href="index.html?word=connectivity&psych_neuro=false">"connectivity"</a> and <a href="index.html?word=crispr&psych_neuro=false">"CRISPR"</a> studies are hot right now (the dataset covers cognitive, behavioral, and cellular neuroscience).<br><br>The statistics computed reflect data on ~250k empirical psychology papers and ~150k empirical neuroscience papers published from 2004-2024. This webpage was prepared alongside the article <a href="../assets/pdf/Bogdan_2025_PsyChange_Manuscript_SuppMat.pdf">"One Decade Into the Replication Crisis, How Have Psychological Results Changed?"</a> (<i>in press</i>), although the paper did not cover neuroscience papers, only psychology ones. <br><br>You can download the dataset on Psychology paper statistics from the associated <a href="https://osf.io/mxs47/">OSF repository</a>. You can additionally find the code used to download the papers, organize the dataset, and perform the analysis in this <a href="https://github.com/paulcbogdan/PsychChange">GitHub repository</a>.
 </div>
 
 <div class="charts-container">
@@ -260,7 +260,7 @@ if (themeSetting2 === "system") {
   <div id="chart03" class="chart" style="width: 380px; height: 290px;"></div>
 </div>
 
-<div id="sentence1" class="description" style="font-size: 1.2rem;"></div>
+<div id="sentence1" class="description" style="font-size: 1.1rem;"></div>
 
 <div class="charts-container">
   <div id="chart10" class="chart" style="width: 380px; height: 290px;"></div>
@@ -268,7 +268,7 @@ if (themeSetting2 === "system") {
   <div id="chart12" class="chart" style="width: 380px; height: 290px;"></div>
 </div>
 
-<div id='sentence2' class="description" style="font-size: 1.2rem;"></div>
+<div id='sentence2' class="description" style="font-size: 1.1rem;"></div>
 <div style="height: 50px;"></div>
 
 <script>
