@@ -1,12 +1,11 @@
 #github_users:
 #  - paulcbogdan
 
-repo_description_lines_max: 2
+repo_description_lines_max: 3
 
 github_repos:
   - paulcbogdan/NiChord
   - paulcbogdan/PsychChange
-  - shobrook/pkld
   - paulcbogdan/ConnSearch
   - paulcbogdan/EmoTemporal
   - paulcbogdan/Suitability_Online_ET

@@ -6,7 +6,7 @@ description:
 nav: true
 nav_order: 4
 ---
-Here, you can find a link to the [`NiChord`](https://github.com/paulcbogdan/nichord) Python package that I maintain. In addition, you can find links to the code from several studies I led and to some fun NFL analytics projects.
+Here, you can find a link to the [`NiChord`](https://github.com/paulcbogdan/nichord) Python package I developed, which can be used to plot chord diagrams for visualizing brain connectivity. You can also find links to the code from several studies I led and to some fun NFL analytics projects.
 
 {% if site.data.repositories.github_users %}
 
