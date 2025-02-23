@@ -145,3 +145,13 @@ function showButton() {
   container.appendChild(newButton);
 };
 
+// Add event listener to the input field
+document.getElementById('word-input').addEventListener('keypress', function(event) {
+    // Check if the pressed key is Enter
+    if (event.key === 'Enter') {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+        // Simulate click on search button
+        document.getElementById('search-button').click();
+    }
+});

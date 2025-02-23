@@ -5,6 +5,7 @@ repo_description_lines_max: 2
 
 github_repos:
   - paulcbogdan/NiChord
+  - paulcbogdan/PsychChange
   - shobrook/pkld
   - paulcbogdan/ConnSearch
   - paulcbogdan/EmoTemporal

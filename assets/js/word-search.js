@@ -18,6 +18,61 @@ function generateOrdinalSteps(lower, upper, steps = 6) {
 
 // Example usage:
 
+function dropzero(ticklabels) {
+  if (ticklabels.every(label => /\d\.0%$/.test(label))) {
+    return ticklabels.map(label => label.replace(/(\d+)\.0%$/, "$1%"));
+  }
+  return ticklabels;
+}
+
+function generateTickLabels(ymin, ymax, format) {
+  // Determine the step size
+  const range = ymax - ymin;
+  const maxSteps = 7; // Maximum number of steps allowed
+  let step = Math.pow(10, Math.floor(Math.log10(range / (maxSteps - 1))));
+
+  // Adjust step size to "nice" values (1, 2, or 5 * power of 10)
+  const niceSteps = [1, 2, 5, 10];
+  let selectedStep = step;
+
+  for (let s of niceSteps) {
+    const currentStep = step * s;
+    const numSteps = Math.ceil(range / currentStep) + 1;
+
+    if (numSteps <= maxSteps) {
+      selectedStep = currentStep;
+      break;
+    }
+  }
+
+  // Generate tick values, rounding to avoid float errors
+  let tickValues = [];
+  let start = Math.ceil(ymin / selectedStep) * selectedStep;
+  for (let v = start; v <= ymax + 1e-10; v += selectedStep) {
+    tickValues.push(Number(v.toPrecision(15))); // Avoid float precision errors
+  }
+
+  // Convert tick values to percentages if needed
+  if (format === ".0%" || format === ".1%" || format === ".2%") {
+    tickValues = tickValues.map(v => v * 100);
+  }
+
+  // Format tick labels
+  let tickLabels = tickValues.map(v => {
+    if (format === ".0%") return v.toFixed(0) + "%";
+    if (format === ".1%") return v.toFixed(1) + "%";
+    if (format === ".2%") return v.toFixed(2) + "%";
+    return v.toString(); // Default fallback
+  });
+
+  if (format === ".0%" || format === ".1%" || format === ".2%") {
+    tickValues = tickValues.map(v => v / 100);
+  }
+
+  tickLabels = dropzero(tickLabels);
+
+  return { tickValues, tickLabels };
+}
 
 function floatToOrdinal(floatValue) {
   // Extract the fractional part and convert it to a whole number
@@ -51,9 +106,6 @@ function floatToOrdinal(floatValue) {
   // Return the formatted string
   return `${number}${suffix}`;
 }
-
-// Example usage:
-// console.log(generateOrdinalSteps(0.2, 0.3));
 
 
 function makePlot(m1, // se1,
@@ -93,7 +145,9 @@ function makePlot(m1, // se1,
       width: 5,
       shape: "spline",
     },
-    hoverinfo: "none",
+    // hoverinfo: "none",
+    hovertemplate: "%{y}<extra></extra>",
+
   };
 
 
@@ -103,13 +157,7 @@ function makePlot(m1, // se1,
   var trace3 = null;
 
   if (m1_low !== null) {
-    // var p_frag_high = m1.map((x, i) => x + se1[i]);
-    // var p_frag_low = m1.map((x, i) => x - se1[i]);
-    //
-    // first_val_high = p_frag_high[0];
-    // first_val_low = p_frag_low[0];
-    // last_val_high = p_frag_high[p_frag_high.length - 1];
-    // last_val_low = p_frag_low[p_frag_low.length - 1];
+
 
     trace2 = {
       x: [years.at(0) - buffer].concat(years.slice(1, -1), [years.at(-1) + buffer]),
@@ -165,7 +213,8 @@ function makePlot(m1, // se1,
         color: marker0_line_color,
         width: 5,
       },
-      hoverinfo: "none",
+      // hoverinfo: "none",
+      hovertemplate: "%{y}<extra></extra>",
 
     };
   }
@@ -234,10 +283,6 @@ function makePlot(m1, // se1,
     }
 
     [ticktext, tickvals] = generateOrdinalSteps(y_min_, y_max_);
-    console.log(ticktext);
-    console.log(tickvals);
-    console.log(y_min_);
-    console.log(y_max_);
 
     if (y_max_ > .9999) {
       ticktext = ["95th", "96th", "97th", "98th", "99th"];
@@ -278,6 +323,7 @@ function makePlot(m1, // se1,
       }
       yformat = ".0%";
     }
+
   } else {
     yformat = ",.0";
   }
@@ -323,7 +369,20 @@ function makePlot(m1, // se1,
     y_min_ = 0;
   }
 
-  console.log("axis:", axisColor);
+  if (is_percent) {
+    const tick_info = generateTickLabels(y_min_, y_max_, yformat);
+    tickvals = tick_info.tickValues;
+    ticktext = tick_info.tickLabels;
+  }
+
+  function getTextWidth(text) {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    // context.font = "12px Arial"; // Match your plot's font
+    context.font = "14px Font Awesome 6 Brands";
+    return context.measureText(text).width * 1.5;
+  }
+
   const layout = {
 
     title: {
@@ -341,13 +400,15 @@ function makePlot(m1, // se1,
     dragmode: false,
     displayModeBar: false, // Hide modebar (menu options)
     showlegend: false,
-    hovermode: false,
+    // hovermode: false,
     // margin: { t: 20},
     margin: {
-      l: l_margin * width,
-      r: 0.05 * width,
-      t: 0.15 * height,
-      b: 0.1 * height,
+      l: 0, // l_margin * width,
+      r: 0, // 0.05 * width,
+      t: 32, // 0.15 * height,
+      b: 0, // 0.1 * height,
+      pad: 0,
+      autoexpand: true,
     }, // Remove margins
     autosize: true, // Automatically resize the plot to fit the container
     paper_bgcolor: "rgba(0,0,0,0)", // Transparent background
@@ -378,16 +439,20 @@ function makePlot(m1, // se1,
       showline: true,
       linewidth: 2,
       tickwidth: 2,
-      ticks: "outside", // Show tick marks outside the axis
       range: [y_min_, y_max_],
       tickvals: tickvals,
       ticktext: ticktext,
       automargin: true,
+      ticklabelposition: "outside",
+      ticklabelstandoff: 10,  // Adjust as needed
       linecolor: axisColor,
       tickfont: { color: axisColor },
       tickcolor: axisColor,
       gridcolor: gridColor,
 
+
+      scaleratio: 1,
+      constrain: "domain", // Keeps the y-axis within bounds
       // zeroline: true,
     },
 
@@ -398,6 +463,10 @@ function makePlot(m1, // se1,
       // color: "#2a2424", // Set the default font color
     },
   };
+
+  if (ticktext !== null) {
+    layout.margin.l = Math.max(...ticktext.map(getTextWidth)) * 1.2 + 12;
+  }
   // layout.annotations = [{
   //   text: "Title above subplot 1", font: { color: "red" },
   //   x: 0.165, y: 1.05, xref: "paper", yref: "paper", showarrow: false,
@@ -434,6 +503,7 @@ function makePlot(m1, // se1,
   };
 
   Plotly.newPlot(do_div, layout_data, layout, config);
+  // Plotly.relayout(myPlot, { "yaxis.automargin": true });
   // return new Promise(resolve => setTimeout(resolve, ms));
 }
 
@@ -503,7 +573,7 @@ function processWordData(data, signal) {
 
   function loop(index, prop) {
     if (signal.aborted) {
-      console.log("Request aborted, skipping processWordData");
+      // console.log("Request aborted, skipping processWordData");
       return;
     }
 
@@ -602,7 +672,7 @@ function processWordData(data, signal) {
   document.getElementById("sentence1").innerHTML = data.statement1;
 
 
-  statement2_text = "The shaded intervals represent ± 1 standard error. The result at each year represents pooling across ± 2 years (e.g., the year 2014 point and shaded area is based on data from 2012-2016). These intervals may get wonky at low usage levels. Most words yielding the lowest rates of fragile p-values seem to be from big correlational studies. The word-percentile distributions may not always be intuitive (e.g., a word's papers' fragile p-value rate may be below the median paper while the word is still in the top 50th percentile of words).";
+  statement2_text = "Shading illustrates ± 1 standard error. The data at each year is pooled across ± 2 years (e.g., at 2014, data is from 2012-2016). These intervals may get wonky at low usage levels. Most words yielding the lowest rates of fragile p-values seem to be from big correlational studies. The word-percentile distributions may not always be intuitive (e.g., a word's papers' fragile p-value rate may be below the median paper while the word is still in the top 50th percentile of words). Finally, note that the citations plot represents the citations received as of 2024 of papers published in a given past year, not the citations received in said year.";
   document.getElementById("sentence2").innerHTML = statement2_text;
 
 
@@ -694,7 +764,6 @@ randomButton.addEventListener("click", () => {
     .then(response => response.json())
     .then(files => {
       const randomFile = files[Math.floor(Math.random() * files.length)];
-      console.log(randomFile);
       const word = randomFile.split(".")[0];
       var apiUrl;
       if (getSliderState()) {
@@ -716,6 +785,14 @@ randomButton.addEventListener("click", () => {
         })
         .then(data => {
           processWordData(data, signal);
+
+          const wordInput = document.getElementById("word-input");
+          const word = wordInput.value.trim().toLowerCase();
+          const base_url = location.protocol + "//" + location.host + location.pathname;
+          const toggle_ps = document.getElementById("neuroPsychToggle_ps");
+          const newUrl = base_url + "?word=" + word + "&psych_neuro=" + toggle_ps.checked;
+          window.history.pushState({ path: newUrl }, "", newUrl);
+
         })
         .catch(error => {
           document.getElementById("sentence0").innerHTML = `<p>No data found for "${word}".</p>`;
@@ -731,3 +808,13 @@ randomButton.addEventListener("click", () => {
     });
 });
 
+document.getElementById("search-button").addEventListener("click", function() {
+  const wordInput = document.getElementById("word-input");
+  const word = wordInput.value.trim().toLowerCase();
+  const base_url = location.protocol + "//" + location.host + location.pathname;
+  const toggle_ps = document.getElementById("neuroPsychToggle_ps");
+  const newUrl = base_url + "?word=" + word + "&psych_neuro=" + toggle_ps.checked;
+
+  // Update the URL without reloading the page
+  window.history.pushState({ path: newUrl }, "", newUrl);
+});
