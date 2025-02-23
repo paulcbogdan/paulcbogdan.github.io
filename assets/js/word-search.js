@@ -129,7 +129,7 @@ function makePlot(m1, // se1,
   const axisColor = isDark ? "#ffffff" : "#2a2424"; // White in dark mode, black in light mode
   const gridColor = isDark ? "#2a2424" : "#ededed"; // Black in dark mode, white in light mode
 
-  const trace_m1 = {
+  var trace_m1 = {
     x: years, y: m1,
     type: "scatter",
     xaxis: "x".concat(title),
@@ -214,8 +214,7 @@ function makePlot(m1, // se1,
         width: 5,
       },
       // hoverinfo: "none",
-      hovertemplate: "%{y}<extra></extra>",
-
+      hovertemplate: "%{y:.1%}<extra></extra>",
     };
   }
 
@@ -300,11 +299,14 @@ function makePlot(m1, // se1,
   } else if (is_percent) {
     if (y_max_ < .01) {
       yformat = ".2%";
+      trace_m1.hovertemplate = "%{y:.3%}<extra></extra>";
       l_margin = 0.22;
     } else if (y_max_ < 0.05) {
       yformat = ".1%";
+      trace_m1.hovertemplate = "%{y:.2%}<extra></extra>";
       l_margin = 0.2;
     } else if (y_max_ > 0.95) {
+      trace_m1.hovertemplate = "%{y:.2%}<extra></extra>";
       yformat = ".1%";
     } else {
       if (y_max_ - y_min_ < 0.05) {
@@ -321,6 +323,7 @@ function makePlot(m1, // se1,
         y_max_ = y_max_ + gap_dif / 2;
         y_min_ = y_min_ - gap_dif / 2;
       }
+      trace_m1.hovertemplate = "%{y:.1%}<extra></extra>";
       yformat = ".0%";
     }
 
@@ -344,7 +347,7 @@ function makePlot(m1, // se1,
         width: 2,
         dash: "dash",
       },
-
+      hoverinfo: "none",
     };
 
     annotation = {
@@ -362,14 +365,14 @@ function makePlot(m1, // se1,
     };
 
     if (y_min_ > 0.25) {
-      y_min_ = 0.255;
+      y_min_ = 0.25;
     }
   }
   if (y_min_ < 0) {
     y_min_ = 0;
   }
 
-  if (is_percent) {
+  if (is_percent && !is_rank_flex && !is_rank) {
     const tick_info = generateTickLabels(y_min_, y_max_, yformat);
     tickvals = tick_info.tickValues;
     ticktext = tick_info.tickLabels;
@@ -404,9 +407,9 @@ function makePlot(m1, // se1,
     // margin: { t: 20},
     margin: {
       l: 0, // l_margin * width,
-      r: 0, // 0.05 * width,
-      t: 32, // 0.15 * height,
-      b: 0, // 0.1 * height,
+      r: 10, // 0.05 * width,
+      t: 40, // 0.15 * height,
+      b: 15, // 0.1 * height,
       pad: 0,
       autoexpand: true,
     }, // Remove margins
