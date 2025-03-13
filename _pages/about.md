@@ -23,7 +23,7 @@ profile:
 social: false # includes social icons at the bottom of the page
 ---
 
-I am a Postdoctoral Researcher in Psychology & Neuroscience at Duke University, working with [Roberto Cabeza and Simon Davis](https://cabezalab.org/lab-members/). My current research focuses on the neural correlates of memory, reasoning, and aging. As part of my PhD at the University of Illinois, I also conducted studies on behavioral economics, social cognition, and emotion processing. Long-term, I am interested in clarifying how these different mechanisms coalesce and make up a common cognitive architecture.
+I am a postdoc in Psychology & Neuroscience at Duke University, working with [Roberto Cabeza and Simon Davis](https://cabezalab.org/lab-members/). My current research focuses on the neural correlates of memory, reasoning, and aging. As part of my PhD at the University of Illinois, I also conducted studies on behavioral economics, social cognition, and emotion processing. Long-term, I am interested in clarifying how these different mechanisms coalesce and make up a common cognitive architecture.
 
 My work primarily uses fMRI and behavioral techniques. Generally, I am interested in statistics, computatinal modeling, and the development of new analytical methodologies. This Fall (2025), I plan to go on the job market for a faculty position. 
 
