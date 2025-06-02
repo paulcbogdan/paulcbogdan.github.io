@@ -119,7 +119,8 @@ function makePlot(m1, // se1,
   let themeSetting = determineThemeSetting();
   var isDark;
   if (themeSetting === "system") {
-    isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    // isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    isDark = false;
   } else if (themeSetting === "dark") {
     isDark = true;
   } else {
