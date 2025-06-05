@@ -65,21 +65,8 @@
           {% endfor %}
         {%- endif -%}
 
-        {%- if forloop.length > 1 -%}
-          {%- if forloop.first == false %}{% if forloop.length > 2 %},{% endif %}&#32;{% endif -%}
-          {%- if forloop.last and author_array_limit == author_array_size %}and&#32;{% endif -%}
-        {% endif %}
-        {%- if author_is_self -%}
-          <strong style="color: var(--global-first-color);">Bogdan, P.C.</strong>
-        {%- else -%}
-          {%- if coauthor_url -%}
-            <a href="{{coauthor_url}}">
-              {{ author.last}}, {{author.first| slice: 0 }}.
-            </a>
-          {%- else -%}
-             {{ author.last}}, {{author.first| slice: 0 }}.
-          {% endif %}
-        {%- endif -%}
+        {%- if forloop.length > 1 -%}{%- if forloop.first == false %}{% if forloop.length > 2 %},{% endif %}&#32;{% endif -%}{%- if forloop.last and author_array_limit == author_array_size %}and&#32;{% endif -%}{%- endif -%}
+        {%- if author_is_self -%}<strong style="color: var(--global-first-color);">Bogdan, P.C.</strong>{%- else -%}{%- if coauthor_url -%}<a href="{{coauthor_url}}">{{ author.last}}, {{author.first| slice: 0}}.</a>{%- else -%}{{ author.last}}, {{author.first| slice: 0}}.{% endif %}{%- endif -%}
       {% endfor %}
       {%- assign more_authors = author_array_size | minus: author_array_limit -%}
 
@@ -117,7 +104,33 @@
 		.
       {% endif %}
     </span>
-	<span class='Year'>({{ entry.year }}).</span>
+	{% if entry.year == '9999' or entry.year == 9999 %}
+	  {% if entry.note %}
+	    <span class='Year'>({{ entry.note }}).</span>
+	  {% else %}
+	    <span class='Year'>(in press).</span>
+	  {% endif %}
+	{% elsif entry.year == '9998' or entry.year == 9998 %}
+	  {% if entry.note %}
+	    <span class='Year'>({{ entry.note }}).</span>
+	  {% else %}
+	    <span class='Year'>(in preparation).</span>
+	  {% endif %}
+	{% elsif entry.year == '9997' or entry.year == 9997 %}
+	  {% if entry.note %}
+	    <span class='Year'>({{ entry.note }}).</span>
+	  {% else %}
+	    <span class='Year'>(submitted).</span>
+	  {% endif %}
+	{% elsif entry.year == '9996' or entry.year == 9996 %}
+	  {% if entry.note %}
+	    <span class='Year'>({{ entry.note }}).</span>
+	  {% else %}
+	    <span class='Year'>(under review).</span>
+	  {% endif %}
+	{% else %}
+	  <span class='Year'>({{ entry.year }}).</span>
+	{% endif %}
 	<!-- Title -->
     <!-- <div class="title">"{{ entry.title }}"</div> -->
 	<span class="title">{{ entry.title }}.</span>
@@ -141,12 +154,8 @@
     
 	
 	<span class="periodical">
-      {{ periodical | strip }}.
+      {% if entrytype_text != blank %}{{ periodical | strip }}.{% endif %}
     </span>
-    <span class="periodical">
-      {{ entry.note | strip }}
-    </span>
-	
 
     <!-- Links/Buttons -->
     <div class="links">
