@@ -14,7 +14,7 @@ Use special numeric year values and add a `note` field with the actual status:
   author={Your Name},
   journal={Journal Name},
   year={9999},  % Special numeric code for sorting
-  note={in press}  % Actual status to display
+  note={In Press}  % Actual status to display
 }
 ```
 
@@ -22,10 +22,10 @@ Use special numeric year values and add a `note` field with the actual status:
 
 | Status | Year Code | Note Field |
 |--------|-----------|------------|
-| in press | 9999 | `in press` |
-| in preparation | 9998 | `in preparation` |
-| submitted | 9997 | `submitted` |
-| under review | 9996 | `under review` |
+| In Press | 9999 | `In Press` |
+| In Preparation | 9998 | `In Preparation` |
+| Preprints | 9997 | `Preprints` |
+| Under Review | 9996 | `Under Review` |
 
 ### 3. Example Entries
 
@@ -36,7 +36,7 @@ Use special numeric year values and add a `note` field with the actual status:
   author={Author Name},
   journal={Journal Name},
   year={9999},
-  note={in press},
+  note={In Press},
   pdf={path/to/pdf.pdf}
 }
 
@@ -46,16 +46,16 @@ Use special numeric year values and add a `note` field with the actual status:
   author={Author Name},
   journal={Future Journal},
   year={9998},
-  note={in preparation}
+  note={In Preparation}
 }
 
-% Submitted
-@article{paper_submitted,
-  title={Submitted Paper},
+% Preprints
+@article{paper_preprint,
+  title={Preprint Paper},
   author={Author Name},
   journal={Target Journal},
   year={9997},
-  note={submitted}
+  note={Preprints}
 }
 ```
 
