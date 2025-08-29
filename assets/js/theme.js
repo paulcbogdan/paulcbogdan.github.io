@@ -206,25 +206,30 @@ let transTheme = () => {
 };
 
 // Determine the expected state of the theme toggle, which can be "dark", "light", or
-// "system". Default is "system".
+// "system". Default is "dark" for new visitors.
 let determineThemeSetting = () => {
   let themeSetting = localStorage.getItem("theme");
   if (themeSetting != "dark" && themeSetting != "light" && themeSetting != "system") {
-    themeSetting = "system";
+    // First time visitor - default to dark mode
+    themeSetting = "dark";
   }
   return themeSetting;
 };
 
 // Determine the computed theme, which can be "dark" or "light". If the theme setting is
 // "system", the computed theme is determined based on the user's system preference.
+// Default to dark mode when no system preference exists.
 let determineComputedTheme = () => {
   let themeSetting = determineThemeSetting();
   if (themeSetting == "system") {
     const userPref = window.matchMedia;
     if (userPref && userPref("(prefers-color-scheme: dark)").matches) {
       return "dark";
-    } else {
+    } else if (userPref && userPref("(prefers-color-scheme: light)").matches) {
       return "light";
+    } else {
+      // No system preference detected, default to dark mode
+      return "dark";
     }
   } else {
     return themeSetting;
