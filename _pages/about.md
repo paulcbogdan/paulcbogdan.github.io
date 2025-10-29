@@ -13,9 +13,9 @@ profile:
   image_circular: True # crops the image to make it circular
   more_info: >
     <br style="line-height: 10px"><a href="assets\pdf\BogdanPaul_CV_Aug_2025.pdf">Curriculum Vitae</a></br><br></br>
-    <br>Rm B254, Box 90999</br>
-    <br>Duke University LSRC Bldg</br>
-    <br>Durham, NC 27708</br>
+#     <br>Rm B254, Box 90999</br>
+#     <br>Duke University LSRC Bldg</br>
+#     <br>Durham, NC 27708</br>
 
 #news: true # includes a list of news items
 #selected_papers: true # includes a list of papers marked as "selected={true}"
