@@ -2,10 +2,10 @@
 layout: about
 title: About
 permalink: /
-subtitle: >
-    <p>
-        <br><a href="mailto:paulcbogdan@gmail.com">paulcbogdan@gmail.com</a>
-    </p>
+# subtitle: <p>
+#         <strong>Postdoctoral Researcher</strong>, Duke University
+#         <br><a href="mailto:paulcbogdan@gmail.com">paulcbogdan@gmail.com</a>
+#     </p>
 
 profile:
   align: right
@@ -24,7 +24,7 @@ social: false # includes social icons at the bottom of the page
 
 I am currently doing research on AI safety and interpreting LLMs.
 
-I previously completed a postdoc at Duke University, focusing on how the brain encodes information. Before that, I finished a PhD in cognitive neuroscience at the University of Illinois, largely studying statistical methodology, memory, and social decision-making. Of my past projects, the one that received the most attention is a <a href="../assets/pdf/Bogdan_2025_AMPPS_Psych_Changed_Replication.pdf">meta-science study</a> examining trends in statistical robustness in psychology from 2004 to 2024 (see <a href="meganal/index.html">Meganalysis</a>). The theoretical work I am most proud of is this <a href="../assets/pdf/SOPE_manuscript.pdf">unpublished piece</a>, which tries to unify moral judgment and behavioral economics research on how people evaluate and respond to others' behavior.
+I previously did a postdoc at Duke University, focusing on how the brain encodes information. Before that, I finished a PhD at the University of Illinois, studying statistical methods, memory, and social decision-making. My most notable project was a <a href="../assets/pdf/Bogdan_2025_AMPPS_Psych_Changed_Replication.pdf">meta-science study</a> on statistical robustness in psychology from 2004 to 2024 (see <a href="meganal/index.html">Meganalysis</a>). My favorite theoretical work was this <a href="../assets/pdf/SOPE_manuscript.pdf">unpublished piece</a>, which tries to unify research on how people evaluate and respond to others' behavior.
 
 Outside of work, I enjoy sports. My favorite teams are the hopeless Chicago Bears and the hopeful Illini basketball team. I also like leisurely data science projects, such as <a href="https://fansided.com/2022/05/12/nba-fanbase-saltiest-analyzing-reddit-posts/">these</a> <a href="https://fansided.com/2022/08/25/saltiest-nfl-fanbase-analyzing-reddit/">two</a> analyses of fan sentiment after wins and losses.
 
