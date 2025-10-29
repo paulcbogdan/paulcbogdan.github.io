@@ -4,8 +4,7 @@ title: About
 permalink: /
 subtitle: >
     <p>
-        <strong>Postdoctoral Researcher</strong>, Duke University
-        <br><a href="mailto:paul.bogdan@duke.edu">paul.bogdan@duke.edu</a>
+        <br><a href="mailto:paulcbogdan@gmail.com">paulcbogdan@gmail.com</a>
     </p>
 
 profile:
@@ -23,10 +22,10 @@ profile:
 social: false # includes social icons at the bottom of the page
 ---
 
-I am a postdoc in Psychology & Neuroscience at Duke University, working with [Roberto Cabeza and Simon Davis](https://cabezalab.org/lab-members/). My current research focuses on the neural correlates of memory, reasoning, and aging. As part of my PhD at the University of Illinois, I also conducted studies on behavioral economics, social cognition, and emotion processing. Long-term, I am interested in clarifying how these different mechanisms coalesce and make up a common cognitive architecture.
+I am currently doing research on AI safety and interpreting LLMs.
 
-My work primarily uses fMRI and behavioral techniques. Generally, I am interested in statistics, modeling, and the development of new analytical methodologies.
+I previously completed a postdoc at Duke University, focusing on how the brain encodes information. Before that, I finished a PhD in cognitive neuroscience at the University of Illinois, largely studying statistical methodology, memory, and social decision-making. Of my past projects, the one that received the most attention is a <a href="../assets/pdf/Bogdan_2025_AMPPS_Psych_Changed_Replication.pdf">meta-science study</a> examining trends in statistical robustness in psychology from 2004 to 2024 (see <a href="meganal/index.html">Meganalysis</a>). The theoretical work I am most proud of is this <a href="../assets/pdf/SOPE_manuscript.pdf">unpublished piece</a>, which tries to unify moral judgment and behavioral economics research on how people evaluate and respond to others' behavior.
 
-In my personal life, I enjoy sports. My favorite teams are the hopeless Chicago Bears along with the hopeful Illini basketball team. I also like leisurely data science projects, like [these](https://fansided.com/2022/05/12/nba-fanbase-saltiest-analyzing-reddit-posts/) [two](https://fansided.com/2022/08/25/saltiest-nfl-fanbase-analyzing-reddit/) on sports fan valence after wins/losses.
+Outside of work, I enjoy sports. My favorite teams are the hopeless Chicago Bears and the hopeful Illini basketball team. I also like leisurely data science projects, such as <a href="https://fansided.com/2022/05/12/nba-fanbase-saltiest-analyzing-reddit-posts/">these</a> <a href="https://fansided.com/2022/08/25/saltiest-nfl-fanbase-analyzing-reddit/">two</a> analyses of fan sentiment after wins and losses.
 
 Feel free to contact me about anything (email preferred).
